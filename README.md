@@ -31,4 +31,12 @@ Création d’une application « SIH_DMI » permettant via une interface web res
 
 
 ## Répartitions des tâches
+- création de compte (authentification)
+- formulaire de paramétrage de son compte (avec Nom, Prénom, ID Graulandais ...)
+- visualisation et confirmation des actes médicaux
+- réglement des actes médicaux
+
+-> pour chacun écrire en dur des données de tests pour le mode "hors ligne"
+
+
 
