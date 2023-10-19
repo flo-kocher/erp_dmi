@@ -1,5 +1,10 @@
 # ERP_DMI
 
+## Installation
+npm install
+npm install react-router-dom
+
+
 ## Scénario type pour l'ensemble de l'application
 - DMI : Création de compte / connexion compte existant
 - DMI : Saisie Vérification des informations générales

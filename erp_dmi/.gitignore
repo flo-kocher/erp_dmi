@@ -22,4 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# for DMI project
 .idea/*
+package-lock.json
+package.json
+
