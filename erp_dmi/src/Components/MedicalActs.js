@@ -1,6 +1,21 @@
 import logo from '../logo.svg';
 import './MedicalActs.css';
+import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import {ComplexGrid, CreateComplexGrid} from "./ComplexGrid";
+// import { DataGrid } from '@mui/x-data-grid';
+
+// https://mui.com/x/react-data-grid/ pour créer un tableau avec une liste des actes
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
 function getActList() {
     return [
@@ -54,6 +69,20 @@ function MedicalActs() {
             <Link to="/">Home</Link>
             <h2>Test de visualisation d'actes médicaux</h2>
             <ActItemList/>
+            <h2>Test visualisation avec Grid</h2>
+            <Grid container spacing={3}>
+                <Grid item xs="auto">
+                    <Item>variable width content</Item>
+                </Grid>
+                <Grid item xs={6}>
+                    <Item>xs=6</Item>
+                </Grid>
+                <Grid item xs>
+                    <Item>xs</Item>
+                </Grid>
+            </Grid>
+            <h2>Test Complex Grid</h2>
+            <CreateComplexGrid/>
         </div>
     );
 }
