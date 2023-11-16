@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 
 import { FaArrowRightLong } from "react-icons/fa6";
+import {Link} from "react-router-dom";
+import { getMedicalActsList } from "../API/testDatas";
 
 const Img = styled('img')({
     margin: 'auto',
@@ -13,52 +15,10 @@ const Img = styled('img')({
     maxHeight: '100%',
 });
 
-function getActList() {
-    return [
-        {
-            'id': 1,
-            'date': '01/01/2000',
-            'location': 'Strasbourg',
-            'intervention': 'Lorem ipsum est',
-            'comment': "Je réalise un commentaire constructif",
-            'price': 50,
-            'support_price': 10,
-            'remaining_price': 0
-        },
-        {
-            'id': 2,
-            'date': '22/12/2025',
-            'location': 'Paris',
-            'intervention': 'Ich bin deutsch',
-            'comment': "Commentaire sur l'état de l'acte médical",
-            'price': 200,
-            'support_price': 20,
-            'remaining_price': 0
-        }
-    ]
-}
-
 // https://mui.com/material-ui/react-grid/#complex-grid
 
-export function CreateComplexGrid() {
-    const acts = getActList();
-    return (
-        acts.map((act, index) => (
-            <ComplexGrid
-                key={act['id']}
-                date={act['date']}
-                location={act['location']}
-                intervention={act['intervention']}
-                comment={act['comment']}
-                price={act['price']}
-                support_price={act['support_price']}
-                remaining_price={act['remaining_price']}
-            />
-        ))
-    );
-}
-
-export function ComplexGrid(props) {
+export function MedicalActsGrid(props) {
+    console.log(props)
     return (
         <Paper
             sx={{
@@ -89,13 +49,34 @@ export function ComplexGrid(props) {
                         </Grid>
                     </Grid>
                     <Grid item>
-                        <ButtonBase sx={{ width: 128, height: 128 }}>
-                            {/*Go to medical act*/}
-                            <FaArrowRightLong/>
-                        </ButtonBase>
+                        {/* Go to the medical act with ID : props.id */}
+                        <Link to={`${props.id}/form`} state={props}>
+                            <ButtonBase sx={{ width: 128, height: 128 }}>
+                                <FaArrowRightLong/>
+                            </ButtonBase>
+                        </Link>
                     </Grid>
                 </Grid>
             </Grid>
         </Paper>
+    );
+}
+
+export function CreateMedicalActsGrid() {
+    const acts = getMedicalActsList();
+    return (
+        acts.map((act, index) => (
+            <MedicalActsGrid
+                key={act['id']}
+                id={act['id']}
+                date={act['date']}
+                location={act['location']}
+                intervention={act['intervention']}
+                comment={act['comment']}
+                price={act['price']}
+                support_price={act['support_price']}
+                remaining_price={act['remaining_price']}
+            />
+        ))
     );
 }
