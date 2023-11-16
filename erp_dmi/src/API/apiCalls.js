@@ -1,12 +1,4 @@
-const checkStatus = (res) => {
-    if (res.ok) {
-        return res;
-    } else {
-        return res.text().then((msg) => {
-            throw new Error(msg);
-        });
-    }
-};
+import { checkStatus } from "../utils/checkStatus";
 
 //EXEMPLE DE FONCTION 
 export const signup = ({ firstname, name, password, idGr, email, phoneNumber }) => {
@@ -19,7 +11,7 @@ export const signup = ({ firstname, name, password, idGr, email, phoneNumber }) 
     });
 };
 
-  export const signin = ({ idGr, password }) => {
+export const signin = ({ idGr, password }) => {
     fetch(`http://localhost:4200/signin`, {
         method: "post",
         headers: {

@@ -1,59 +1,91 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useUser, useUserUpdate } from "./Context/userContext";
-import { signin } from "./apicalls";
-import { useQuery } from "react-query";
+import { useUser, useUserUpdate } from "../Context/userContext";
+// import { signin } from "./apicalls";
 import { useNavigate } from "react-router-dom";
 
 export default function Signin() {
-  let navigate = useNavigate();
+	let navigate = useNavigate();
 
-  const [user, token] = useUser();
-  const [changeUser,changeToken]=useUserUpdate();
-  const userUpdate = useUserUpdate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+	const [changeUser]=useUserUpdate();
+	const [idGr, setIdGr] = useState("");
+	const [password, setPassword] = useState("");
 
-  const handleSubmit =async (e) => {
-              navigate("/home/allColoc")
+	const users = [
+		{
+			id: 1,
+			id_Graulandais: 549863,
+			email: "florentin.kocher@unistra.fr",
+			password: "123456",
+			name: "Kocher",
+			first_name:	"Florentin",
+			mutuelle: {
+				id: 1,
+				name: "Mgen"
+			}
+		},
+		{
+			id: 2,
+			id_Graulandais: 235446,
+			email: "jbhari@hotmail.fr",
+			password: "orange",
+			name: "Hari",
+			first_name:	"Jean-Baptiste",
+			mutuelle: {
+				id: 2,
+				name: "TrucMuche"
+			}
+		},
+	];
 
-    e.preventDefault();
-/*     let response=await signin({username,password});
-    if(response.statusCode==200){
-      changeUser(response.username);
-      changeToken(response.token);
-      navigate("/home/allColoc")
-    } */
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		let userExists = false;
+		let connectedUser = null;
+		users.forEach(u => {
+			if(u.id_Graulandais == idGr && u.password == password)
+			{
+				userExists = true;
+				connectedUser = u;
+			}
+		});
 
-  };
-  const handleUsernameChange = (e) => {
-    userUpdate(e);
-    setUsername(e);
-  };
-  const handlePasswordChange = (e) => {
-    setPassword(e);
-  };
-  return (
-    <>
-      <p>{user}</p>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Adresse mail </label>
-        <input
-          name="username"
-          type="text"
-          value={username}
-          onChange={(e) => handleUsernameChange(e.target.value)}
-        />
-        <label htmlFor="password">Mot de passe </label>
-        <input
-          name="password"
-          type="text"
-          value={password}
-          onChange={(e) => handlePasswordChange(e.target.value)}
-        ></input>
-        <input type="submit" />
-      </form>
-      <Link to="/signup">Pas encore de compte ?</Link>
-    </>
-  );
+		if(userExists){
+			changeUser(connectedUser);
+			navigate("/home/test");
+		}
+
+		
+	    // let response=await signin({username,password});
+		// if(response.statusCode==200){
+		// 	changeUser(response.username);
+		// 	navigate("/home/test")
+		// } 
+	};
+	const handleUsernameChange = (e) => {
+		setIdGr(e);
+	};
+	const handlePasswordChange = (e) => {
+		setPassword(e);
+	};
+	return <>
+		<form onSubmit={handleSubmit}>
+			<label htmlFor="idGr">Identifiant Graulandais</label>
+			<input
+				name="idGr"
+				type="text"
+				value={idGr}
+				onChange={(e) => handleUsernameChange(e.target.value)}
+			/>
+			<label htmlFor="password">Mot de passe</label>
+			<input
+				name="password"
+				type="password"
+				value={password}
+				onChange={(e) => handlePasswordChange(e.target.value)}
+			/>
+			<input type="submit" />
+		</form>
+		<Link to="/signup">Pas encore de compte ?</Link>
+	</>;
 }

@@ -10,7 +10,7 @@ export function useUserUpdate() {
   return useContext(UserUpdateContext);
 }
 export function UserProvider({ children }) {
-  const [user, setUser] = useState("user");
+  const [user, setUser] = useState(null);
   const changeUser = (user) => {
     setUser(user);
   };
