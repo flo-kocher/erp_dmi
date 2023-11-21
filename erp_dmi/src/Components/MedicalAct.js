@@ -1,4 +1,5 @@
 // import './MedicalAct.css';
+import { MedicalActGrid } from "./MedicalActGrid";
 
 import { useLocation } from "react-router-dom";
 
@@ -10,6 +11,7 @@ function MedicalAct(props) {
             <h1>
                 My medical act : {state.id}
             </h1>
+            <MedicalActGrid data={state}/>
         </div>
     );
 }
