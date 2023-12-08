@@ -19,7 +19,7 @@ export const signup = ({ firstname, name, password, idGr, email, phoneNumber }) 
     });
 };
 
-  export const signin = ({ idGr, password }) => {
+export const signin = ({ idGr, password }) => {
     fetch(`http://localhost:4200/signin`, {
         method: "post",
         headers: {
