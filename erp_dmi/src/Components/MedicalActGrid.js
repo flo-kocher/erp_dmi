@@ -4,61 +4,83 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 
-import { FaArrowRightLong } from "react-icons/fa6";
+import { IoMdCash, IoMdCheckmarkCircleOutline, IoMdClose  } from 'react-icons/io';
 import {Link} from "react-router-dom";
 import { getMedicalActFromId } from "../API/testDatas";
 
 export function MedicalActGrid(props) {
-    console.log('here')
-    console.log(props)
-    return (
+    // console.log('here')
+    // console.log(props)
+    const fields = [
+        { label: 'hospital_id', value: props.hospital_id },
+        { label: 'mutuelle_id', value: props.mutuelle_id },
+        { label: 'date_prevue', value: props.date_prevue },
+        { label: 'date_venue', value: props.date_venue },
+        { label: 'metadata_1', value: props.metadata_1 },
+        { label: 'metadata_2', value: props.metadata_2 },
+        { label: 'commentaire', value: props.commentaire },
+        { label: 'montant_total', value: props.montant_total },
+        { label: 'pourcentage_prise_en_charge', value: props.pourcentage_prise_en_charge },
+        { label: 'prise_en_charge_hopital', value: props.prise_en_charge_hopital },
+        { label: 'prise_en_charge_mutuelle', value: props.prise_en_charge_mutuelle },
+        { label: 'prise_en_charge_patient', value: props.prise_en_charge_patient },
+      ];
+      const regexForHopital = /^.*_hopital$/;
+      const regexForMutuelle = /^.*_mutuelle$/;
+      const regexForPatient = /^.*_patient$/;
+
+      return (
         <Paper
-            sx={{
-                p: 2,
-                margin: 'auto',
-                maxWidth: 500,
-                flexGrow: 1,
-                backgroundColor: (theme) =>
-                    theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-            }}
+          sx={{
+            p: 2,
+            margin: 'auto',
+            maxWidth: 600,
+            flexGrow: 1,
+            textAlign: 'left',
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+          }}
         >
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm container>
-                    <Grid item xs container direction="column" spacing={2}>
-                        <Grid style={{textAlign: 'left'}} item xs>
-                            <Typography gutterBottom variant="subtitle1" component="div">
-                                {props.metadata_1}
-                            </Typography>
-                            <Typography gutterBottom variant="subtitle2" component="div">
-                                {props.date_prevue} {props.hospital_id}
-                            </Typography>
-                            <Typography variant="body1" gutterBottom>
-                                {props.prise_en_charge_hopital}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                {props.commentaire}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid item>
-                        {/* Go to the medical act with ID : props.id */}
-                        <Link to={`${props.id}/form`} state={props}>
-                            <ButtonBase sx={{ width: 128, height: 128 }}>
-                                <FaArrowRightLong/>
-                            </ButtonBase>
-                        </Link>
-                    </Grid>
+            <Grid container spacing={2} direction="column">
+            {
+                fields.map((field, index) => (
+                <Grid item key={index}>
+                    <Typography variant={'body1'} gutterBottom component="div">
+                    {field.label} {" : " + field.value} 
+                    {regexForHopital.test(field.label) && (<IoMdCheckmarkCircleOutline size={32} />)}
+                    {regexForMutuelle.test(field.label)  && props.confirmation_mutuelle == true && (<IoMdCheckmarkCircleOutline size={32} />)}
+                    {regexForMutuelle.test(field.label)  && props.confirmation_mutuelle == false && (<IoMdClose size={32} />)}
+                    {regexForPatient.test(field.label)  && props.confirmation_paiement_patient == true && (<IoMdCheckmarkCircleOutline size={32} />)}
+                    {regexForPatient.test(field.label)  && props.confirmation_paiement_patient == false && (<IoMdClose size={32} />)}
+                    </Typography>
+                    
                 </Grid>
+                ))
+            }
+            {!props.confirmation_paiement_patient && (
+            <Grid item>
+              <Typography variant={'body1'} gutterBottom component="div">
+                {"Paiement : "}
+
+                <Link to={'/pages/MedicalActs/'+ props.id + '/payment'} state={props}>
+                <ButtonBase sx={{ width: 128, height: 128 }}>
+                        <IoMdCash size={32} />
+                </ButtonBase>
+                </Link>
+              </Typography>
             </Grid>
+            )}
+          </Grid>
         </Paper>
     );
 }
 
 export function CreateMedicalActGrid(props) {
-    console.log(props.data)
+    // console.log(props.data)
     const act = getMedicalActFromId(props.data);
     return (
         <MedicalActGrid
+            vide = {" "}
             id = {act['id']}
             user_id = {act['user_id']}
             hospital_id = {act['hospital_id']}
