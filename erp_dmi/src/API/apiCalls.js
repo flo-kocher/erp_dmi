@@ -33,6 +33,7 @@ export const signup = ({ firstname, name, password, idGr, email, phoneNumber }) 
         .then((res) => res.json());
 };
 
+//Get only one act medical
 export const getMedicalActFromId = (id) => {
       
     for(let i = 0; i < data.length; i++)
@@ -63,6 +64,7 @@ export const getMedicalActFromId = (id) => {
       
 }
 
+//fonction pour confirmer le rdv 
 export const putConfirmationRDVFromId = ( idMedical, confirmationRDV ) => {
     // window.location.reload();
     console.log(data[idMedical-1])

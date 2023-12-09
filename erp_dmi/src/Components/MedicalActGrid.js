@@ -101,7 +101,7 @@ export function MedicalActGrid(props) {
               </Typography>
             </Grid>
             ))
-            ||
+            ||/*affichage pour confirmation*/
             (
               !props.confirmation_rdv &&(
                 <Grid item>
