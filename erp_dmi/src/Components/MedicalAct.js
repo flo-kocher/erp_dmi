@@ -3,6 +3,7 @@ import { CreateMedicalActGrid } from "./MedicalActGrid";
 
 import { useLocation } from "react-router-dom";
 
+// Page d'un acte Médical
 function MedicalAct(props) {
     let { state } = useLocation();
 
@@ -11,6 +12,7 @@ function MedicalAct(props) {
             <h1>
                 My medical act : {state.id}
             </h1>
+            {/* Informations sur l'acte médical*/}
             <CreateMedicalActGrid data={state.id}/>
         </div>
     );

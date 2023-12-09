@@ -6,12 +6,19 @@ import ButtonBase from '@mui/material/ButtonBase';
 
 import { IoMdCash, IoMdCheckmarkCircleOutline, IoMdClose  } from 'react-icons/io';
 import {Link} from "react-router-dom";
-import { getMedicalActFromId } from "../API/testDatas";
+import { getMedicalActFromId, putConfirmationRDVFromId } from "../API/apiCalls";
 
+/* Grille d'informations */
 export function MedicalActGrid(props) {
     // console.log('here')
     // console.log(props)
-    const fields = [
+      const champs_avant_confirmation = [
+        { label: 'hospital_id', value: props.hospital_id },
+        { label: 'mutuelle_id', value: props.mutuelle_id },
+        { label: 'date_prevue', value: props.date_prevue },
+        { label: 'metadata_1', value: props.metadata_1 }
+      ];
+      const champs_apres_confirmation = [
         { label: 'hospital_id', value: props.hospital_id },
         { label: 'mutuelle_id', value: props.mutuelle_id },
         { label: 'date_prevue', value: props.date_prevue },
@@ -25,6 +32,7 @@ export function MedicalActGrid(props) {
         { label: 'prise_en_charge_mutuelle', value: props.prise_en_charge_mutuelle },
         { label: 'prise_en_charge_patient', value: props.prise_en_charge_patient },
       ];
+
       const regexForHopital = /^.*_hopital$/;
       const regexForMutuelle = /^.*_mutuelle$/;
       const regexForPatient = /^.*_patient$/;
@@ -43,21 +51,44 @@ export function MedicalActGrid(props) {
         >
             <Grid container spacing={2} direction="column">
             {
-                fields.map((field, index) => (
+                /* Affichage des informations pour l'acte médical*/
+                (!props.confirmation_rdv &&
+                champs_avant_confirmation.map((field, index) => (
                 <Grid item key={index}>
                     <Typography variant={'body1'} gutterBottom component="div">
                     {field.label} {" : " + field.value} 
+
+                    {/* Informations sur le remboursement de l'hopital X ou check */}
                     {regexForHopital.test(field.label) && (<IoMdCheckmarkCircleOutline size={32} />)}
+                    
+                    {/* Informations sur le remboursement de la mutuelle du client X ou check */}
                     {regexForMutuelle.test(field.label)  && props.confirmation_mutuelle == true && (<IoMdCheckmarkCircleOutline size={32} />)}
                     {regexForMutuelle.test(field.label)  && props.confirmation_mutuelle == false && (<IoMdClose size={32} />)}
+                    
+                    {/* Informations sur le paiement du client X ou check */}
                     {regexForPatient.test(field.label)  && props.confirmation_paiement_patient == true && (<IoMdCheckmarkCircleOutline size={32} />)}
                     {regexForPatient.test(field.label)  && props.confirmation_paiement_patient == false && (<IoMdClose size={32} />)}
                     </Typography>
                     
                 </Grid>
-                ))
+                )))
+                ||
+                (
+                  props.confirmation_rdv && 
+                  champs_apres_confirmation.map((field, index) => (
+                    <Grid item key={index}>
+                        <Typography variant={'body1'} gutterBottom component="div">
+                        {field.label} {" : " + field.value} 
+                        </Typography>
+                        
+                    </Grid>
+                  ))
+                )
             }
-            {!props.confirmation_paiement_patient && (
+            
+            {/* Si le paiement n'est pas validé affichage du bouton de paiement */}
+            {(props.confirmation_rdv &&
+            !props.confirmation_paiement_patient && (
             <Grid item>
               <Typography variant={'body1'} gutterBottom component="div">
                 {"Paiement : "}
@@ -69,12 +100,29 @@ export function MedicalActGrid(props) {
                 </Link>
               </Typography>
             </Grid>
+            ))
+            ||
+            (
+              !props.confirmation_rdv &&(
+                <Grid item>
+                <Typography variant={'body1'} gutterBottom component="div">
+                  {"Confirmation RDV : "}
+
+                  <Link to={'/pages/MedicalActs/'+ props.id + '/form'} state={props}>
+                  <ButtonBase onClick={() => putConfirmationRDVFromId(props.id, true)} sx={{ width: 128, height: 128 }}>
+                          <IoMdCheckmarkCircleOutline size={32} />
+                  </ButtonBase>
+                  </Link>
+                </Typography>
+              </Grid>
+              )
             )}
           </Grid>
         </Paper>
     );
 }
 
+/* Récupères les informations sur l'acte médical */
 export function CreateMedicalActGrid(props) {
     // console.log(props.data)
     const act = getMedicalActFromId(props.data);
