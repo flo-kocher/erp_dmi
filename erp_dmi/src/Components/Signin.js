@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useUser, useUserUpdate } from "./Context/userContext";
-import { signin } from "./apicalls";
+import { useUser, useUserUpdate } from "../Context/userContext";
+import { signin } from "../API/apiCalls";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ export default function Signin() {
   const [password, setPassword] = useState("");
 
   const handleSubmit =async (e) => {
-              navigate("/home/allColoc")
+              navigate("/pages/")
 
     e.preventDefault();
 /*     let response=await signin({username,password});
@@ -27,7 +27,7 @@ export default function Signin() {
 
   };
   const handleUsernameChange = (e) => {
-    userUpdate(e);
+    // userUpdate(e);
     setUsername(e);
   };
   const handlePasswordChange = (e) => {

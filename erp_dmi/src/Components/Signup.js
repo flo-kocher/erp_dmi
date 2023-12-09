@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
-import { signup } from "./apicalls";
+// import {
+//   useQuery,
+//   useMutation,
+//   useQueryClient,
+//   QueryClient,
+//   QueryClientProvider,
+// } from "react-query";
+import { signup } from "../API/apiCalls";
 import { useNavigate } from "react-router-dom";
 import isEmail from "validator/lib/isEmail";
-import { useUser, useUserUpdate } from "./Context/userContext";
+import { useUser, useUserUpdate } from "../Context/userContext";
 
 export default function Signup() {
   let navigate = useNavigate();
