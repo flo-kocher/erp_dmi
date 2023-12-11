@@ -36,6 +36,8 @@ export function MedicalActGrid(props) {
       const regexForHopital = /^.*_hopital$/;
       const regexForMutuelle = /^.*_mutuelle$/;
       const regexForPatient = /^.*_patient$/;
+      const currentDate = new Date();
+      console.log(currentDate.toISOString())
 
       return (
         <Paper
@@ -52,7 +54,7 @@ export function MedicalActGrid(props) {
             <Grid container spacing={2} direction="column">
             {
                 /* Affichage des informations pour l'acte médical*/
-                (!props.confirmation_rdv &&
+                (props.date_venue >= currentDate.toISOString() &&
                 champs_avant_confirmation.map((field, index) => (
                 <Grid item key={index}>
                     <Typography variant={'body1'} gutterBottom component="div">
@@ -74,7 +76,7 @@ export function MedicalActGrid(props) {
                 )))
                 ||
                 (
-                  props.confirmation_rdv && 
+                  props.date_venue < currentDate.toISOString() && 
                   champs_apres_confirmation.map((field, index) => (
                     <Grid item key={index}>
                         <Typography variant={'body1'} gutterBottom component="div">
@@ -87,7 +89,7 @@ export function MedicalActGrid(props) {
             }
             
             {/* Si le paiement n'est pas validé affichage du bouton de paiement */}
-            {(props.confirmation_rdv &&
+            {(props.date_venue >= currentDate.toISOString() &&
             !props.confirmation_paiement_patient && (
             <Grid item>
               <Typography variant={'body1'} gutterBottom component="div">
@@ -103,7 +105,7 @@ export function MedicalActGrid(props) {
             ))
             ||/*affichage pour confirmation*/
             (
-              !props.confirmation_rdv &&(
+              !props.confirmation_rdv && props.date_venue >= currentDate.toISOString() &&(
                 <Grid item>
                 <Typography variant={'body1'} gutterBottom component="div">
                   {"Confirmation RDV : "}
@@ -126,6 +128,7 @@ export function MedicalActGrid(props) {
 export function CreateMedicalActGrid(props) {
     // console.log(props.data)
     const act = getMedicalActFromId(props.data);
+    // get hopital and get mutuelle
     return (
         <MedicalActGrid
             vide = {" "}
