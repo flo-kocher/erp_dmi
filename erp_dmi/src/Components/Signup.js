@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { signup } from "./apicalls";
+import { signup } from "../API/apiCalls";
 import { useUser, useUserUpdate } from "../Context/userContext";
 
 export default function Signup() {

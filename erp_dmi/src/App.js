@@ -12,55 +12,29 @@ import Home from './Components/Home';
 import MedicalActs from './Components/MedicalActs';
 import MedicalAct from "./Components/MedicalAct";
 
-import Signin from "./Components/Signin";
-import Signup from "./Components/Signup";
-//import { QueryClient, QueryClientProvider } from "react-query";
-import { UserProvider, useUser } from "./Context/userContext";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-
 
 function App() {
     // const queryClient = new QueryClient();
     return (
         //<QueryClientProvider client={queryClient}>
             <UserProvider>
-                <BrowserRouter>
+                {/* <BrowserRouter> */}
                     <Routes>
                         <Route path="/signin" element={<Signin />} />
                         <Route path="/signup" element={<Signup />} />
-                        <Route path={"/home/"} element={<RequireAuth />}>
-                            <Route path="test" element={<TestDestination />} />
-                            <Route path="*" element={<Navigate to="/home/test" />} />
+                        
+                        <Route path={"/userConnected/"} element={<RequireAuth />}>
+                            <Route path="home" element={<Home />} />
+                            <Route path="*" element={<Navigate to="/home" />} />
+                            <Route path="pages/MedicalActs" element={<MedicalActs/>} />
+                            <Route path="pages/MedicalActs/:id/form" element={<MedicalAct/>} />
                         </Route>
                         <Route path="*" element={<Navigate to="/signin" />} />
-                        {/* <Routes>
-                            <Route path="/" element={<Home/>} />
-                            <Route path="/pages/MedicalActs" element={<MedicalActs/>} />
-                            <Route path="/pages/MedicalActs/:id/form" element={<MedicalAct/>} />
-                        </Routes> */}
                     </Routes>
-                </BrowserRouter>
+                {/* </BrowserRouter> */}
             </UserProvider>
         //</QueryClientProvider>
     );
-    // return (
-    //     <div className="App">
-    //         <header className="App-header">
-    //             <img src={logo} className="App-logo" alt="logo"/>
-    //             <p>
-    //                 Edit <code>src/App.js</code> and save to reload.
-    //             </p>
-    //             <a
-    //                 className="App-link"
-    //                 href="https://reactjs.org"
-    //                 target="_blank"
-    //                 rel="noopener noreferrer"
-    //             >
-    //                 Learn React
-    //             </a>
-    //         </header>
-    //     </div>
-    // );
 }
 
 export default App;

@@ -1,12 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useUser, useUserUpdate } from "../Context/userContext";
-<<<<<<< HEAD
-// import { signin } from "./apicalls";
-=======
 import { signin } from "../API/apiCalls";
 import { useQuery } from "react-query";
->>>>>>> 64f55f8e3a3179820fa4a53127938b5a1e27dde9
 import { useNavigate } from "react-router-dom";
 
 export default function Signin() {
@@ -59,7 +55,7 @@ export default function Signin() {
 
 		if(userExists){
 			changeUser(connectedUser);
-			navigate("/home/test");
+			navigate("/userConnected/home");
 		}
 
 	    // let response=await signin({username,password});

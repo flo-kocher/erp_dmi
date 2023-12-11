@@ -22,7 +22,7 @@ function MedicalActs() {
     return (
         <div className="MedicalActs">
             <h1>Actes médicaux</h1>
-            <Link to="/">Home</Link>
+            <Link to="/userConnected/home">Home</Link>
             <h2>Actes médicaux (avec Complex Grid)</h2>
             <CreateMedicalActsGrid/>
         </div>
