@@ -1,33 +1,64 @@
-import { toPay } from "User";
+// import { toPay } from "User";
 import { getCardNumber } from "../API/apiLocal";
 
-export default function Payment() {
-    //On récupère le prix à payer 
-    const price = useToPay();
 
-    //On affiche le prix à payer
-    var priceOutput = document.getElementById("ToPay");
-    priceOutput.innerHTML = price;
-}
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import ButtonBase from '@mui/material/ButtonBase';
+import {Link} from "react-router-dom";
 
-//On récupère les informations bancaires. L'appel se fait via un formulaire
-//Au "Grosland", les cartes bancaires peuvent comprendre n'importe quel caractère et avoir une lenght infinie.
-function getCardNumber() {
-    var cardInput = document.getElementById("CardNumber");
-    var value = cardInput.value;
-    
-    if(value == null){
-        console.log("Vous n'avez pas rentré de numéro de carte\n");
-        return (
-            <p>Vous n'avez pas rentré de numéro de carte</p>
-        );
-    }
+import { useLocation, useNavigate } from "react-router-dom";
 
-    //Je débite le prix en BDD
-    PaymentDone();
+import { putConfirmationPaiementFromId } from "../API/apiLocal";
+import { IoMdCash, IoMdCheckmarkCircleOutline, IoMdClose  } from 'react-icons/io';
 
-    //La validation est envoyée
+// Paiement d'un acte médical
+function Payment(props) {
+    let { state } = useLocation();
+    let navigate = useNavigate();
+    console.log(props)
     return (
-        <p>Payement validé</p>
+        <div className="Payment">
+            <a onClick={() => navigate(-1)}>Retour</a>
+            <h1>
+                Paiement de {state.prise_en_charge_patient} euros
+            </h1>
+            {/* Informations sur le paiement*/}
+
+                <Paper
+                    sx={{
+                        p: 2,
+                        margin: 'auto',
+                        maxWidth: 500,
+                        flexGrow: 1,
+                        backgroundColor: (theme) =>
+                            theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                    }}
+                >
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm container>
+                            <Grid item>
+                            <Typography variant={'body1'} gutterBottom component="div">
+                                {"Valider le Paiement :"}
+                                
+                                {         
+                                    !props.confirmation_paiement_patient && 
+                                    (
+                                        <Link to={{}} state={props}>
+                                        <ButtonBase onClick={() => putConfirmationPaiementFromId(props.id, true)} sx={{ width: 128, height: 128 }}>
+                                            <IoMdCheckmarkCircleOutline size={32} />
+                                        </ButtonBase>
+                                        </Link>
+                                    )                   
+                                }
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Paper>
+        </div>
     );
 }
+
+export default Payment;
