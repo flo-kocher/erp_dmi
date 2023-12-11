@@ -1,52 +1,24 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useUser, useUserUpdate } from "../Context/userContext";
-import { signin } from "../API/apiCalls";
-import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { signin } from "../API/apiLocal";
+import { useNavigate, generatePath } from "react-router-dom";
+import { users } from "../API/testDatas";
 
 export default function Signin() {
 	let navigate = useNavigate();
 
-	const [changeUser]=useUserUpdate();
+	const [changeUser] = useUserUpdate();
 	const [idGr, setIdGr] = useState("");
 	const [password, setPassword] = useState("");
-
-	const users = [
-		{
-			id: 1,
-			id_Graulandais: 549863,
-			email: "florentin.kocher@unistra.fr",
-			password: "123456",
-			name: "Kocher",
-			first_name:	"Florentin",
-			mutuelle: {
-				id: 1,
-				name: "Mgen"
-			}
-		},
-		{
-			id: 2,
-			id_Graulandais: 235446,
-			email: "jbhari@hotmail.fr",
-			password: "orange",
-			name: "Hari",
-			first_name:	"Jean-Baptiste",
-			mutuelle: {
-				id: 2,
-				name: "TrucMuche"
-			}
-		},
-	];
-  
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const handleSubmit = async (e) => {
-		//navigate("/pages/");
 		e.preventDefault();
 		let userExists = false;
 		let connectedUser = null;
 		users.forEach(u => {
-			if(u.id_Graulandais == idGr && u.password == password)
+			if(u.id_graulande == idGr && u.password == password)
 			{
 				userExists = true;
 				connectedUser = u;
@@ -55,9 +27,13 @@ export default function Signin() {
 
 		if(userExists){
 			changeUser(connectedUser);
-			navigate("/userConnected/home");
+			const path = generatePath("/user/:idGr/MedicalActs", { idGr });
+			navigate(path);
+			setErrorMessage("");
 		}
-
+		else{
+			setErrorMessage("Aucun utilisateur existant pour cet identifiant graulandais et ce mot de passe.");
+		}
 	    // let response=await signin({username,password});
 		// if(response.statusCode==200){
 		// 	changeUser(response.username);
@@ -71,6 +47,7 @@ export default function Signin() {
 		setPassword(e);
 	};
 	return <>
+		<h1>Connexion</h1>
 		<form onSubmit={handleSubmit}>
 			<label htmlFor="idGr">Identifiant Graulandais</label>
 			<input
@@ -88,6 +65,8 @@ export default function Signin() {
 			/>
 			<input type="submit" />
 		</form>
+		<label id="errorMessage">{errorMessage}</label>
+		<br/>
 		<Link to="/signup">Pas encore de compte ?</Link>
 	</>;
 }

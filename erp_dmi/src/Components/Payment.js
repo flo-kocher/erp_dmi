@@ -1,5 +1,5 @@
 import { toPay } from "User";
-import { getCardNumber } from "../API/apiCalls";
+import { getCardNumber } from "../API/apiLocal";
 
 export default function Payment() {
     //On récupère le prix à payer 

@@ -1,0 +1,23 @@
+h1{
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+form div {
+    margin: 10px;
+}
+
+.champ{
+    display: flex;
+    flex-direction: column;
+}
+
+a{
+    text-decoration: underline;
+    cursor: pointer;
+}

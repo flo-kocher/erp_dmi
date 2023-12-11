@@ -1,4 +1,24 @@
 //data test
+
+export let users = [
+    {
+        id: 1,
+        id_graulande: 549863,
+        password: "123456",
+        name: "Kocher",
+        first_name:	"Florentin",
+        mutuelle_id: 1,
+    },
+    {
+        id: 2,
+        id_graulande: 235446,
+        password: "azerty",
+        name: "Hari",
+        first_name:	"Jean-Baptiste",
+        mutuelle_id: 2,
+    }
+] 
+
 export let data = [
     {
         "id": 1,

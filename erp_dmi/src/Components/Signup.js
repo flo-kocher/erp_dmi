@@ -1,18 +1,16 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signup } from "../API/apiCalls";
-import { useUser, useUserUpdate } from "../Context/userContext";
+import { signup } from "../API/apiLocal";
+import { users } from "../API/testDatas"
 
 export default function Signup() {
 	let navigate = useNavigate();
-	const userUpdate = useUserUpdate();
 	const [idGraulandais, setidGraulandais] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordConfirm, setPasswordConfirm] = useState("");
 	const [name, setName] = useState("");
 	const [firstname, setFirstname] = useState("");
 	const [mutuelle, setMutuelle] = useState("");
-	const [email, setEmail] = useState("");
 
 	const handleChangeIdGraulandais = (e) => {
 		setidGraulandais(e);
@@ -32,13 +30,10 @@ export default function Signup() {
 	const handleChangeMutuelle = (e) => {
 		setMutuelle(e);
 	};
-	const handleChangeEmail = (e) => {
-		setEmail(e);
-	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		/*Vérification des champs du formulaire*/
 		if (
-			email.trim() !== "" &&
 			password.trim() !== "" &&
 			password === passwordConfirm &&
 			idGraulandais.trim() !== "" &&
@@ -48,68 +43,73 @@ export default function Signup() {
 		) {
 			const newUser = {
 				id: 3,
-				id_Graulandais: idGraulandais,
-				email: email,
+				id_graulande: idGraulandais,
 				password: password,
 				name: name,
 				first_name:	firstname,
-				mutuelle: {
-					id: mutuelle,
-					name: "???"
-				}
+				mutuelle: mutuelle
 			};
 			console.log(newUser);
+			users.push(newUser);
+			navigate("/signin");
 			//signup({ parseInt(idGraulandais), password, name, firstname, mutuel, email });
 		}
 	};
 	return (
 		<>
+		<h1>Inscription</h1>
 		<form onSubmit={handleSubmit}>
-			<label>Votre identifiant Graulandais </label>
-			<input
-				type="text"
-				value={idGraulandais}
-				onChange={(e) => handleChangeIdGraulandais(e.target.value)}
-			/>
-			<label>Votre mot de passe </label>
-			<input
-				type="password"
-				value={password}
-				onChange={(e) => handleChangePassword(e.target.value)}
-			/>
-			<label>Confirmez votre mot de passe </label>
-			<input
-				type="password"
-				value={passwordConfirm}
-				onChange={(e) => handleChangePasswordConfirm(e.target.value)}
-			/>
-			<label>Votre nom </label>
-			<input
-				type="text"
-				value={name}
-				onChange={(e) => handleChangeName(e.target.value)}
-			/>
-			<label>Votre prénom </label>
-			<input
-				type="text"
-				value={firstname}
-				onChange={(e) => handleChangeFirstname(e.target.value)}
-			/>
-			<label>Votre adresse mail </label>
-			<input
-				type="text"
-				value={email}
-				onChange={(e) => handleChangeEmail(e.target.value)}
-			/>
-			<label>Votre mutuelle </label>
-			<select id="mutuelle-select" onChange={handleChangeMutuelle}>
-				<option value="0">--Veuillez choisir une option--</option>
-				<option value="1">Mgen</option>
-				<option value="2">TrucMuche</option>
-			</select>
+			<div class="champ">
+				<label>Votre identifiant Graulandais : </label>
+				<input
+					type="text"
+					value={idGraulandais}
+					onChange={(e) => handleChangeIdGraulandais(e.target.value)}
+				/>
+			</div>
+			<div class="champ">
+				<label>Votre mot de passe : </label>
+				<input
+					type="password"
+					value={password}
+					onChange={(e) => handleChangePassword(e.target.value)}
+				/>
+			</div>
+			<div class="champ">
+				<label>Confirmez votre mot de passe : </label>
+				<input
+					type="password"
+					value={passwordConfirm}
+					onChange={(e) => handleChangePasswordConfirm(e.target.value)}
+				/>
+			</div>
+			<div class="champ">
+				<label>Votre nom : </label>
+				<input
+					type="text"
+					value={name}
+					onChange={(e) => handleChangeName(e.target.value)}
+				/>
+			</div>
+			<div class="champ">
+				<label>Votre prénom : </label>
+				<input
+					type="text"
+					value={firstname}
+					onChange={(e) => handleChangeFirstname(e.target.value)}
+				/>
+			</div>
+			<div class="champ">
+				<label>Votre mutuelle : </label>
+				<select id="mutuelle-select" onChange={handleChangeMutuelle}>
+					<option value="0">--Veuillez choisir une option--</option>
+					<option value="1">Mgen</option>
+					<option value="2">TrucMuche</option>
+				</select>
+			</div>
 			<input type="submit" />
 		</form>
-		<Link to="/">Déjà un compte ?</Link>
+		<Link to="/signin">Déjà un compte ?</Link>
 		</>
 	);
 }

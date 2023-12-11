@@ -4,21 +4,23 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 
+import { useUser } from '../Context/userContext';
 import { IoMdCash, IoMdCheckmarkCircleOutline, IoMdClose  } from 'react-icons/io';
 import {Link} from "react-router-dom";
-import { getMedicalActFromId, putConfirmationRDVFromId } from "../API/apiCalls";
+import { getMedicalActFromId, putConfirmationRDVFromId } from "../API/apiLocal";
 
 /* Grille d'informations */
 export function MedicalActGrid(props) {
+	const [user] = useUser();
     // console.log('here')
     // console.log(props)
-      const champs_avant_confirmation = [
+	const champs_avant_confirmation = [
         { label: 'hospital_id', value: props.hospital_id },
         { label: 'mutuelle_id', value: props.mutuelle_id },
         { label: 'date_prevue', value: props.date_prevue },
         { label: 'metadata_1', value: props.metadata_1 }
-      ];
-      const champs_apres_confirmation = [
+	];
+	const champs_apres_confirmation = [
         { label: 'hospital_id', value: props.hospital_id },
         { label: 'mutuelle_id', value: props.mutuelle_id },
         { label: 'date_prevue', value: props.date_prevue },
@@ -31,13 +33,13 @@ export function MedicalActGrid(props) {
         { label: 'prise_en_charge_hopital', value: props.prise_en_charge_hopital },
         { label: 'prise_en_charge_mutuelle', value: props.prise_en_charge_mutuelle },
         { label: 'prise_en_charge_patient', value: props.prise_en_charge_patient },
-      ];
+	];
 
-      const regexForHopital = /^.*_hopital$/;
-      const regexForMutuelle = /^.*_mutuelle$/;
-      const regexForPatient = /^.*_patient$/;
+	const regexForHopital = /^.*_hopital$/;
+	const regexForMutuelle = /^.*_mutuelle$/;
+	const regexForPatient = /^.*_patient$/;
 
-      return (
+	return (
         <Paper
           sx={{
             p: 2,
@@ -93,7 +95,7 @@ export function MedicalActGrid(props) {
               <Typography variant={'body1'} gutterBottom component="div">
                 {"Paiement : "}
 
-                <Link to={'/pages/MedicalActs/'+ props.id + '/payment'} state={props}>
+                <Link to={'/user/' + user.id_graulandais + '/MedicalActs/'+ props.id + '/payment'} state={props}>
                 <ButtonBase sx={{ width: 128, height: 128 }}>
                         <IoMdCash size={32} />
                 </ButtonBase>
