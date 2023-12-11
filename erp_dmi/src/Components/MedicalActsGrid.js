@@ -6,7 +6,8 @@ import ButtonBase from '@mui/material/ButtonBase';
 
 import { FaArrowRightLong } from "react-icons/fa6";
 import {Link} from "react-router-dom";
-import { getMedicalActsList } from "../API/testDatas";
+import {data, hospitals_data} from "../API/testDatas";
+import {useUser} from "../Context/userContext";
 
 const Img = styled('img')({
     margin: 'auto',
@@ -15,10 +16,18 @@ const Img = styled('img')({
     maxHeight: '100%',
 });
 
+function getHospitalName(hospital_id) {
+    const hospitals = hospitals_data;
+    for(let i = 0; i < hospitals.length; i++) {
+        if(hospitals[i].id === hospital_id)
+            return hospitals[i].name;
+    }
+    return "Hôpital de secours";
+}
+
 // https://mui.com/material-ui/react-grid/#complex-grid
 
 export function MedicalActsGrid(props) {
-    console.log(props)
     return (
         <Paper
             sx={{
@@ -63,20 +72,21 @@ export function MedicalActsGrid(props) {
 }
 
 export function CreateMedicalActsGrid() {
-    const acts = getMedicalActsList();
+    const acts = data;
+    const [user] = useUser();
     return (
-        acts.map((act, index) => (
-            <MedicalActsGrid
-                key={act['id']}
-                id={act['id']}
-                date={act['date']}
-                location={act['location']}
-                intervention={act['intervention']}
-                comment={act['comment']}
-                price={act['price']}
-                support_price={act['support_price']}
-                remaining_price={act['remaining_price']}
-            />
-        ))
+        acts.map((act, index) => {
+            if(act.user_id === user.id_graulande)
+                return (
+                    <MedicalActsGrid
+                        key={act['id']}
+                        id={act['id']}
+                        date={act['date_prevue']}
+                        location={getHospitalName(act['hospital_id'])}
+                        intervention={act['metadata_1']}
+                        comment={act['commentaire']}
+                    />
+                )
+        })
     );
 }

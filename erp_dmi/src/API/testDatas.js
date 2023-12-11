@@ -3,7 +3,7 @@
 export let users = [
     {
         id: 1,
-        id_graulande: 549863,
+        id_graulande: 101,
         password: "123456",
         name: "Kocher",
         first_name:	"Florentin",
@@ -11,13 +11,13 @@ export let users = [
     },
     {
         id: 2,
-        id_graulande: 235446,
+        id_graulande: 102,
         password: "azerty",
         name: "Hari",
         first_name:	"Jean-Baptiste",
         mutuelle_id: 2,
     }
-] 
+]
 
 export let data = [
     {
@@ -102,7 +102,7 @@ export let data = [
     },
     {
         "id": 5,
-        "user_id": 105,
+        "user_id": 101,
         "hospital_id": 205,
         "mutuelle_id": 305,
         "metadata_1": "IRM cérébrale",
@@ -122,7 +122,7 @@ export let data = [
     },
     {
         "id": 6,
-        "user_id": 106,
+        "user_id": 102,
         "hospital_id": 206,
         "mutuelle_id": 306,
         "metadata_1": "Chirurgie de la cataracte",
@@ -142,7 +142,7 @@ export let data = [
     },
     {
         "id": 7,
-        "user_id": 107,
+        "user_id": 102,
         "hospital_id": 207,
         "mutuelle_id": 307,
         "metadata_1": "Consultation cardiologue",
@@ -162,7 +162,7 @@ export let data = [
     },
     {
         "id": 8,
-        "user_id": 108,
+        "user_id": 103,
         "hospital_id": 208,
         "mutuelle_id": 308,
         "metadata_1": "Kinésithérapie",
@@ -182,7 +182,7 @@ export let data = [
     },
     {
         "id": 9,
-        "user_id": 109,
+        "user_id": 103,
         "hospital_id": 209,
         "mutuelle_id": 309,
         "metadata_1": "Dentisterie",
@@ -202,7 +202,7 @@ export let data = [
     },
     {
         "id": 10,
-        "user_id": 110,
+        "user_id": 103,
         "hospital_id": 210,
         "mutuelle_id": 310,
         "metadata_1": "Consultation dermatologue",
@@ -219,7 +219,7 @@ export let data = [
         "date_creation": "2023-12-08T16:15:45.069Z",
         "date_prevue": "2023-12-18T13:45:00.000Z",
         "date_venue": "2023-12-18T14:00:00.000Z"
-    }          
+    }
 ]
 
 export const getMedicalActsList = () => {
@@ -249,3 +249,17 @@ export const getMedicalActsList = () => {
     ]
 }
 
+export let hospitals_data = [
+    {
+        "id": 201,
+        "name": "Hôpital de Strasbourg"
+    },
+    {
+        "id": 202,
+        "name": "Hôpital de Erstein"
+    },
+    {
+        "id": 207,
+        "name": "Hôpital d'Illkirch"
+    }
+]
