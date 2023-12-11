@@ -1,5 +1,14 @@
 # ERP_DMI
 
+## Commande à lancer à la récupération du projet
+npm install
+
+## Commandes potentielles à lancer si certains packages ont été mal installés
+npm install react-router-dom
+npm install @mui/x-data-grid
+npm install @mui/material @emotion/react @emotion/styled
+npm install react-icons --save
+
 ## Scénario type pour l'ensemble de l'application
 - DMI : Création de compte / connexion compte existant
 - DMI : Saisie Vérification des informations générales
