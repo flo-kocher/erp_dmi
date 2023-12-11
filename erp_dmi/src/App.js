@@ -1,20 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
-import {Routes, Route, Navigate} from 'react-router-dom';
+import './Css/Stylesheet.css'
+import Signin from "./Components/Signin";
+import Signup from "./Components/Signup";
+import RequireAuth from "./Context/requireAuth";
+import { UserProvider } from "./Context/userContext";
+import { Navigate, Route, Routes } from "react-router-dom";
 
-import Home from './Components/Home';
 import MedicalActs from './Components/MedicalActs';
 import MedicalAct from "./Components/MedicalAct";
 
+
 function App() {
     return (
-        <div className="App">
+        <UserProvider>
             <Routes>
-                <Route path="/" element={<Home/>} />
-                <Route path="/pages/MedicalActs" element={<MedicalActs/>} />
-                <Route path="/pages/MedicalActs/:id/form" element={<MedicalAct/>} />
+                <Route path="/signin" element={<Signin />} />
+                <Route path="/signup" element={<Signup />} />
+                
+                <Route path={"/user/:idGr/"} element={<RequireAuth />}>
+                    <Route path="*" element={<Navigate to="MedicalActs"/>} />
+                    <Route path="MedicalActs" element={<MedicalActs/>} />
+                    <Route path="MedicalActs/:id/form" element={<MedicalAct/>} />
+                </Route>
+                <Route path="*" element={<Navigate to="/signin" />} />
             </Routes>
-        </div>
+        </UserProvider>
     );
 }
 

@@ -1,7 +1,6 @@
-import logo from '../logo.svg';
-import './MedicalActs.css';
 import { styled } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useUser, useUserUpdate } from "../Context/userContext";
 import Paper from '@mui/material/Paper';
 import { CreateMedicalActsGrid } from "./MedicalActsGrid";
 
@@ -19,11 +18,19 @@ const Item = styled(Paper)(({ theme }) => ({
 /** Affichage de la page 'Actes médicaux' permettant de visualiser les actes médicaux
  * */
 function MedicalActs() {
+    const [user] = useUser();
+    const [userChange] = useUserUpdate();
+    const navigate = useNavigate();
+
+    const handleLogoff = () => {
+        userChange(null);
+        navigate("/signin");
+    }
+
     return (
         <div className="MedicalActs">
-            <h1>Actes médicaux</h1>
-            <Link to="/">Home</Link>
-            <h2>Actes médicaux (avec Complex Grid)</h2>
+            <button onClick={() => handleLogoff()}>Déconnexion</button>
+            <h1>Actes médicaux de {user.first_name} {user.name}</h1>
             <CreateMedicalActsGrid/>
         </div>
     );
