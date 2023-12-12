@@ -1,4 +1,3 @@
-import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -6,26 +5,8 @@ import ButtonBase from '@mui/material/ButtonBase';
 
 import { FaArrowRightLong } from "react-icons/fa6";
 import {Link} from "react-router-dom";
-import {data, hospitals_data} from "../API/testDatas";
-import {useUser} from "../Context/userContext";
-
-const Img = styled('img')({
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-});
-
-function getHospitalName(hospital_id) {
-    const hospitals = hospitals_data;
-    for(let i = 0; i < hospitals.length; i++) {
-        if(hospitals[i].id === hospital_id)
-            return hospitals[i].name;
-    }
-    return "Hôpital de secours";
-}
-
-// https://mui.com/material-ui/react-grid/#complex-grid
+import {MedicalActsGridItem} from "./MedicalActsGridItem";
+import {getHospitalName} from "../utils/gridUtils";
 
 export function MedicalActsGrid(props) {
     return (
@@ -47,7 +28,7 @@ export function MedicalActsGrid(props) {
                                 {props.intervention}
                             </Typography>
                             <Typography gutterBottom variant="subtitle2" component="div">
-                                {props.date} {props.location}
+                                {new Date(props.date).toLocaleString()}
                             </Typography>
                             <Typography variant="body1" gutterBottom>
                                 {props.price}
@@ -71,22 +52,12 @@ export function MedicalActsGrid(props) {
     );
 }
 
-export function CreateMedicalActsGrid() {
-    const acts = data;
-    const [user] = useUser();
+export function CreateMedicalActsGrid({data}) {
     return (
-        acts.map((act, index) => {
-            if(act.user_id === user.id_graulande)
-                return (
-                    <MedicalActsGrid
-                        key={act['id']}
-                        id={act['id']}
-                        date={act['date_prevue']}
-                        location={getHospitalName(act['hospital_id'])}
-                        intervention={act['metadata_1']}
-                        comment={act['commentaire']}
-                    />
-                )
-        })
+        Object.keys(data).map((key, index) => <>
+                <h5>{getHospitalName(Number(key))}</h5>
+                <MedicalActsGridItem data={data[key]}/>
+            </>
+        )
     );
 }

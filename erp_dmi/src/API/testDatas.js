@@ -37,8 +37,8 @@ export let data = [
         "pourcentage_prise_en_charge": 60,
         "commentaire": "Aucun problème détecté lors de l'examen.",
         "date_creation": "2023-12-08T14:02:59.069Z",
-        "date_prevue": "2023-12-15T10:30:00.000Z",
-        "date_venue": "2023-12-15T10:45:00.000Z"
+        "date_prevue": "2023-12-10T10:30:00.000Z",
+        "date_venue": "2023-12-10T10:45:00.000Z"
     },
     {
         "id": 2,
@@ -63,7 +63,7 @@ export let data = [
     {
         "id": 3,
         "user_id": 101,
-        "hospital_id": 203,
+        "hospital_id": 201,
         "mutuelle_id": 303,
         "metadata_1": "Échographie abdominale",
         "metadata_2": "Douleurs persistantes",
@@ -103,7 +103,7 @@ export let data = [
     {
         "id": 5,
         "user_id": 101,
-        "hospital_id": 205,
+        "hospital_id": 202,
         "mutuelle_id": 305,
         "metadata_1": "IRM cérébrale",
         "metadata_2": "Migraines fréquentes",
@@ -123,7 +123,7 @@ export let data = [
     {
         "id": 6,
         "user_id": 102,
-        "hospital_id": 206,
+        "hospital_id": 204,
         "mutuelle_id": 306,
         "metadata_1": "Chirurgie de la cataracte",
         "metadata_2": "Opération planifiée",
@@ -143,7 +143,7 @@ export let data = [
     {
         "id": 7,
         "user_id": 102,
-        "hospital_id": 207,
+        "hospital_id": 202,
         "mutuelle_id": 307,
         "metadata_1": "Consultation cardiologue",
         "metadata_2": "Douleurs thoraciques",
@@ -163,7 +163,7 @@ export let data = [
     {
         "id": 8,
         "user_id": 103,
-        "hospital_id": 208,
+        "hospital_id": 203,
         "mutuelle_id": 308,
         "metadata_1": "Kinésithérapie",
         "metadata_2": "Rééducation post-traumatique",
@@ -183,7 +183,7 @@ export let data = [
     {
         "id": 9,
         "user_id": 103,
-        "hospital_id": 209,
+        "hospital_id": 202,
         "mutuelle_id": 309,
         "metadata_1": "Dentisterie",
         "metadata_2": "Extraction dentaire",
@@ -202,8 +202,8 @@ export let data = [
     },
     {
         "id": 10,
-        "user_id": 103,
-        "hospital_id": 210,
+        "user_id": 101,
+        "hospital_id": 201,
         "mutuelle_id": 310,
         "metadata_1": "Consultation dermatologue",
         "metadata_2": "Éruption cutanée persistante",
@@ -259,7 +259,11 @@ export let hospitals_data = [
         "name": "Hôpital de Erstein"
     },
     {
-        "id": 207,
+        "id": 203,
         "name": "Hôpital d'Illkirch"
+    },
+    {
+        "id": 204,
+        "name": "Hôpital de Hautepierre"
     }
 ]
