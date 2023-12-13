@@ -1,0 +1,19 @@
+h5,
+h3 {
+    text-align: left;
+}
+
+h3 {
+    margin-top: 50px;
+}
+.MedicalActsContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+button {
+    color: black;
+    background-color: white;
+    padding: 10px 30px;
+    border-width: 1px;
+}

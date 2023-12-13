@@ -1,4 +1,5 @@
 import { styled } from '@mui/material/styles';
+import './MedicalActs.css';
 import { useNavigate } from 'react-router-dom';
 import { useUser, useUserUpdate } from "../Context/userContext";
 import Paper from '@mui/material/Paper';
@@ -66,24 +67,29 @@ function MedicalActs() {
     let grouped_acts_by_hospital = groupByHospital(grouped_acts);
 
     let passe = <p>Aucun acte médical trouvé</p>
-    if (grouped_acts_by_hospital.passe !== {}) {
+    if (Object.keys(grouped_acts_by_hospital.passe).length > 0) {
         passe = <CreateMedicalActsGrid data={grouped_acts_by_hospital.passe}/>
     }
 
     let prevu = <p>Aucun acte médical trouvé</p>
 
-    if (grouped_acts_by_hospital.prevu !== {}) {
+    if (Object.keys(grouped_acts_by_hospital.prevu).length > 0) {
         prevu = <CreateMedicalActsGrid data={grouped_acts_by_hospital.prevu}/>
     }
 
     return (
         <div className="MedicalActs">
             <button onClick={() => handleLogoff()}>Déconnexion</button>
-            <h1>Actes médicaux de {user.first_name} {user.name}</h1>
-            <h3>Actes médicaux prévus</h3>
-            {passe}
-            <h3>Actes médicaux passés</h3>
-            {prevu}
+
+            <div className="MedicalActsContent">
+                <div className="row">
+                    <h1>Actes médicaux de {user.first_name} {user.name}</h1>
+                    <h3>Actes médicaux prévus</h3>
+                    {prevu}
+                    <h3>Actes médicaux passés</h3>
+                    {passe}
+                </div>
+            </div>
         </div>
     );
 }

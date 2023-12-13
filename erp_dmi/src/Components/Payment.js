@@ -17,7 +17,6 @@ import { IoMdCash, IoMdCheckmarkCircleOutline, IoMdClose  } from 'react-icons/io
 function Payment(props) {
     let { state } = useLocation();
     let navigate = useNavigate();
-    console.log(props)
     return (
         <div className="Payment">
             <a onClick={() => navigate(-1)}>Retour</a>
@@ -41,16 +40,16 @@ function Payment(props) {
                             <Grid item>
                             <Typography variant={'body1'} gutterBottom component="div">
                                 {"Valider le Paiement :"}
-                                
-                                {         
-                                    !props.confirmation_paiement_patient && 
+
+                                {
+                                    !props.confirmation_paiement_patient &&
                                     (
                                         <Link to={{}} state={props}>
                                         <ButtonBase onClick={() => putConfirmationPaiementFromId(props.id, true)} sx={{ width: 128, height: 128 }}>
                                             <IoMdCheckmarkCircleOutline size={32} />
                                         </ButtonBase>
                                         </Link>
-                                    )                   
+                                    )
                                 }
                                 </Typography>
                             </Grid>
