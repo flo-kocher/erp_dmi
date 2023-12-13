@@ -58,8 +58,21 @@ export const getMedicalActFromId = (id) => {
 //fonction pour confirmer le rdv 
 export const putConfirmationRDVFromId = ( idMedical, confirmationRDV ) => {
     // window.location.reload();
-    console.log(data[idMedical-1])
+    // console.log(data[idMedical-1])
     data[idMedical-1]['confirmation_rdv'] = confirmationRDV
+    // fetch("http://localhost:4200/signup", {
+    //     method: "put",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({  idMedical, confirmationRDV }),
+    // });
+};
+
+export const putConfirmationPaiementFromId = ( idMedical, confirmationPaiement ) => {
+    // window.location.reload();
+    // console.log(data[idMedical-1])
+    data[idMedical-1]['confirmation_paiement_patient'] = confirmationPaiement
     // fetch("http://localhost:4200/signup", {
     //     method: "put",
     //     headers: {

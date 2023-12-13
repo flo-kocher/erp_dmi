@@ -8,6 +8,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import MedicalActs from './Components/MedicalActs';
 import MedicalAct from "./Components/MedicalAct";
+import Payment from "./Components/Payment";
 
 
 function App() {
