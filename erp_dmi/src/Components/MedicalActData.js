@@ -10,24 +10,24 @@ import { putConfirmationRDVFromId, putConfirmationPaiementFromId } from "../API/
 /* Grille d'informations */
 export function MedicalActData(props) {
       const champs_avant_confirmation = [
-        { label: 'hospital_id', value: props.hospital_id },
-        { label: 'mutuelle_id', value: props.mutuelle_id },
-        { label: 'date_prevue', value: props.date_prevue },
-        { label: 'metadata_1', value: props.metadata_1 }
+        { label: 'Hôpital', value: props.hospital_id },
+        { label: 'Mutuelle', value: props.mutuelle_id },
+        { label: 'Date prévue', value: props.date_prevue },
+        { label: 'Sujet', value: props.metadata_1 }
       ];
       const champs_apres_confirmation = [
-        { label: 'hospital_id', value: props.hospital_id },
-        { label: 'mutuelle_id', value: props.mutuelle_id },
-        { label: 'date_prevue', value: props.date_prevue },
-        { label: 'date_venue', value: props.date_venue },
-        { label: 'metadata_1', value: props.metadata_1 },
-        { label: 'metadata_2', value: props.metadata_2 },
-        { label: 'commentaire', value: props.commentaire },
-        { label: 'montant_total', value: props.montant_total },
-        { label: 'pourcentage_prise_en_charge', value: props.pourcentage_prise_en_charge },
-        { label: 'prise_en_charge_hopital', value: props.prise_en_charge_hopital },
-        { label: 'prise_en_charge_mutuelle', value: props.prise_en_charge_mutuelle },
-        { label: 'prise_en_charge_patient', value: props.prise_en_charge_patient },
+        { label: 'Hôpital', value: props.hospital_id },
+        { label: 'Mutuelle', value: props.mutuelle_id },
+        { label: 'Date prévue', value: props.date_prevue },
+        { label: 'Date de venue', value: props.date_venue },
+        { label: 'Sujet', value: props.metadata_1 },
+        { label: 'Sujet 2', value: props.metadata_2 },
+        { label: 'Commentaire', value: props.commentaire },
+        { label: 'Montant total', value: props.montant_total },
+        { label: 'Pourcentage pris en charge', value: props.pourcentage_prise_en_charge },
+        { label: 'Montant pris en charge par l\'hôpital', value: props.prise_en_charge_hopital },
+        { label: 'Montant pris en charge par la mutuelle', value: props.prise_en_charge_mutuelle },
+        { label: 'Montant pris en charge par le patient', value: props.prise_en_charge_patient },
       ];
 
       const regexForHopital = /^.*_hopital$/;
@@ -54,7 +54,7 @@ export function MedicalActData(props) {
                 champs_avant_confirmation.map((field, index) => (
                 <Grid item key={index}>
                     <Typography variant={'body1'} gutterBottom component="div">
-                    {field.label} {" : " + field.value}
+                    <span style={{ fontWeight: 'bold' }}>{field.label + " : "}</span> {field.value}
 
                     {/* Informations sur le remboursement de l'hopital X ou check */}
                     {regexForHopital.test(field.label) && (<IoMdCheckmarkCircleOutline size={32} />)}
@@ -76,7 +76,7 @@ export function MedicalActData(props) {
                   champs_apres_confirmation.map((field, index) => (
                     <Grid item key={index}>
                         <Typography variant={'body1'} gutterBottom component="div">
-                        {field.label} {" : " + field.value}
+                            <span style={{ fontWeight: 'bold' }}>{field.label + " : "}</span> {field.value}
                         </Typography>
 
                     </Grid>
