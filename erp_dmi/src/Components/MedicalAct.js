@@ -9,7 +9,7 @@ function MedicalAct(props) {
 
     return (
         <div className="MedicalAct">
-            <a onClick={() => navigate(-1)}>Retour</a>
+            <a className="goBack" onClick={() => navigate(-1)}>Retour</a>
             <h1>
                 Mon acte médical : {state.id}
             </h1>
