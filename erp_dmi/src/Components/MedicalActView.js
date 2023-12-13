@@ -11,11 +11,7 @@ function MedicalActView() {
 
     return (
         <div className="MedicalActView">
-<<<<<<< Updated upstream
-            <a onClick={() => navigate(-1)}>Retour</a>
-=======
             <a className="goBack" onClick={() => navigate(-1)}>Retour</a>
->>>>>>> Stashed changes
             <h1>
                 Mon acte médical : {state.id}
             </h1>
