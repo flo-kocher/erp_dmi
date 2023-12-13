@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Define base URL for your API
-const baseURL = 'https://your-api-base-url.com';
+const baseURL = 'https://a8e4-2a01-cb10-d4-2b00-de22-5e32-70d3-8e8a.ngrok-free.app';
 
 // User-related operations
 export const getUsers = () => axios.get(`${baseURL}/user`);
@@ -27,3 +27,7 @@ export const getMedicalActResultById = (id, resultId) => axios.get(`${baseURL}/m
 export const updateMedicalActResult = (id, resultId, medicalActResult) =>
     axios.put(`${baseURL}/medical_act/${id}/results/${resultId}`, medicalActResult);
 export const deleteMedicalActResult = (id, resultId) => axios.delete(`${baseURL}/medical_act/${id}/results/${resultId}`);
+
+
+//Mutuel related operations
+export const getMutuelles = () => axios.get(`${baseURL}/mutuelle`);
