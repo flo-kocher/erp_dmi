@@ -1,8 +1,10 @@
-import {MedicalActCard} from "./MedicalActCard";
+import { MedicalActCard } from "./MedicalActCard";
+import { getMutuelleName } from "../utils/medicalActsUtils";
 
-export function MedicalActsGridItem({data, hospital_name, mutuelle_name}) {
+export function MedicalActsGridItem({data, hospital_name, mutuelles}) {
     return (
         data.map((act, index) => {
+            const mutuelle_name = getMutuelleName(act.mutuelle_id, mutuelles);
             return (
                 <MedicalActCard
                     key={"medicalActCard"+index}

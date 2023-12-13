@@ -10,7 +10,8 @@ export function getHospitalName(hospital_id, hospitalList) {
 
 export function getMutuelleName(mutuelle_id, mutuelleList) {
     const mutuelles = mutuelleList;
-
+    // console.log(mutuelleList);
+    // console.log(mutuelle_id);
     for(let i = 0; i < mutuelles.length; i++) {
         if(mutuelles[i].id === mutuelle_id)
             return mutuelles[i].name;

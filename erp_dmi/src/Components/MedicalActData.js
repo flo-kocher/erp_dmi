@@ -10,8 +10,8 @@ import { putConfirmationRDVFromId, putConfirmationPaiementFromId } from "../API/
 /* Grille d'informations */
 export function MedicalActData(props) {
       const champs_avant_confirmation = [
-        { label: 'Hôpital', value: props.hospital_id },
-        { label: 'Mutuelle', value: props.mutuelle_id },
+        { label: 'Hôpital', value: props.hospital_name },
+        { label: 'Mutuelle', value: props.mutuelle_name },
         { label: 'Date prévue', value: props.date_prevue },
         { label: 'Sujet', value: props.metadata_1 }
       ];
