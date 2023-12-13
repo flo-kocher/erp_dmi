@@ -1,33 +1,5 @@
-import { checkStatus } from "../utils/checkStatus";
-import {authenticateUser, getUserById, updateMedicalAct, getMedicalActById} from "./apiClient";
+import { updateMedicalAct, getMedicalActById } from "./apiClient";
 import { data } from "./testDatas";
-
-//EXEMPLE DE FONCTION 
-export const signup = ({ firstname, name, password, idGr, email, phoneNumber }) => {
-    fetch("http://localhost:4200/signup", {
-        method: "post",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ firstname, name, password, idGr, email, phoneNumber }),
-    });
-};
-export const signin = async ({idGr, password}) => {
-    const response = await getUserById(idGr);
-    if (response.status !== 200){
-        fetch(`http://localhost:4200/signin`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({idGr, password}),
-        })
-            .then(checkStatus)
-            .then((res) => res.json());
-    }else{
-        return response.data;
-    }
-};
 
 //Get only one act medical
 export const getMedicalActFromId = (id) => {

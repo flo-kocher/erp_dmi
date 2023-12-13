@@ -47,8 +47,7 @@ form div {
     flex-direction: column;
 }
 
-
-#signinMainDiv, #signupMainDiv {
+#signinMainDiv, #signupMainDiv, #appointmentMainDiv {
     display: flex;
     flex-direction: column;
 }
@@ -95,4 +94,10 @@ button{
     margin-top: 10px;   
     padding: 5px 20px;
     border: black 1px solid;
+    width: fit-content;
+}
+
+#buttons{
+    display: flex;
+    justify-content: space-between;
 }

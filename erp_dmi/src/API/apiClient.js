@@ -31,3 +31,6 @@ export const deleteMedicalActResult = (id, resultId) => axios.delete(`${baseURL}
 
 //Mutuel related operations
 export const getMutuelles = () => axios.get(`${baseURL}/mutuelle`);
+
+//Hospital related operations
+export const getHospitals = () => axios.get(`${baseURL}/hospital`);

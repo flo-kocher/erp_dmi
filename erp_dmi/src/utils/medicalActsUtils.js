@@ -1,13 +1,22 @@
-import {data, hospitals_data} from "../API/testDatas";
-
-export function getHospitalName(hospital_id) {
-    const hospitals = hospitals_data;
+export function getHospitalName(hospital_id, hospitalList) {
+    const hospitals = hospitalList;
 
     for(let i = 0; i < hospitals.length; i++) {
         if(hospitals[i].id === hospital_id)
             return hospitals[i].name;
     }
     return "Hôpital de secours";
+}
+
+export function getMutuelleName(mutuelle_id, mutuelleList) {
+    const mutuelles = mutuelleList;
+    // console.log(mutuelleList);
+    // console.log(mutuelle_id);
+    for(let i = 0; i < mutuelles.length; i++) {
+        if(mutuelles[i].id === mutuelle_id)
+            return mutuelles[i].name;
+    }
+    return "Mutuelle de secours";
 }
 
 function compareDate(a, b) {
@@ -46,8 +55,8 @@ function groupByHospital(acts) {
 }
 
 
-export function groupActsByPreviousAndPassedByHospital(id_graulande) {
-    let acts = data.filter(act => act.user_id === id_graulande).sort(compareDate);
+export function groupActsByPreviousAndPassedByHospital(userActList) {
+    let acts = userActList.sort(compareDate);
     acts = groupActs(acts);
     acts = groupByHospital(acts);
     return acts;
