@@ -4,9 +4,9 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 
 import { FaArrowRightLong } from "react-icons/fa6";
-import {Link} from "react-router-dom";
-import {MedicalActsGridItem} from "./MedicalActsGridItem";
-import {getHospitalName} from "../utils/medicalActsUtils";
+import { Link } from "react-router-dom";
+import { MedicalActsGridItem } from "./MedicalActsGridItem";
+import { getHospitalName, getMutuelleName } from "../utils/medicalActsUtils";
 
 export function MedicalActCard(props) {
     return (
@@ -52,11 +52,11 @@ export function MedicalActCard(props) {
     );
 }
 
-export function MedicalActGrid({data, hospitals}) {
+export function MedicalActGrid({data, hospitals, mutuelles}) {
     return (
         Object.keys(data).map((key, index) => <>
                 <h5 key={"hospital"+index}>{getHospitalName(Number(key), hospitals)}</h5>
-                <MedicalActsGridItem key={"medicalAct"+index} data={data[key]}/>
+                <MedicalActsGridItem key={"medicalAct"+index} data={data[key]} hospital_name={getHospitalName(Number(key), hospitals)} mutuelle_name={getMutuelleName(data[key].mutuelle_id, mutuelles)}/>
             </>
         )
     );

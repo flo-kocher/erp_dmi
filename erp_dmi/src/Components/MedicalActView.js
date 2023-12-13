@@ -20,7 +20,9 @@ function MedicalActView() {
                 id = {act['id']}
                 user_id = {act['user_id']}
                 hospital_id = {act['hospital_id']}
+                hospital_name = {state.hospital_name}
                 mutuelle_id = {act['mutuelle_id']}
+                mutuelle_name = {state.mutuelle_name}
                 metadata_1 = {act['metadata_1']}
                 metadata_2 = {act['metadata_2']}
                 montant_total = {act['montant_total']}

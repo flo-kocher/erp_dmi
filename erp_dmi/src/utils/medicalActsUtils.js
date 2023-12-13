@@ -8,6 +8,16 @@ export function getHospitalName(hospital_id, hospitalList) {
     return "Hôpital de secours";
 }
 
+export function getMutuelleName(mutuelle_id, mutuelleList) {
+    const mutuelles = mutuelleList;
+
+    for(let i = 0; i < mutuelles.length; i++) {
+        if(mutuelles[i].id === mutuelle_id)
+            return mutuelles[i].name;
+    }
+    return "Mutuelle de secours";
+}
+
 function compareDate(a, b) {
     a = a.date_prevue;
     b = b.date_prevue;

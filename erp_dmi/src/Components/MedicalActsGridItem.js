@@ -1,6 +1,6 @@
 import {MedicalActCard} from "./MedicalActCard";
 
-export function MedicalActsGridItem({data}) {
+export function MedicalActsGridItem({data, hospital_name, mutuelle_name}) {
     return (
         data.map((act, index) => {
             return (
@@ -11,6 +11,8 @@ export function MedicalActsGridItem({data}) {
                     intervention={act['metadata_1']}
                     comment={act['commentaire']}
                     price={act['montant_total']}
+                    hospital_name={hospital_name}
+                    mutuelle_name={mutuelle_name}
                 />
             )
         })

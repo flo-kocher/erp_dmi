@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 
 import { IoMdCash, IoMdCheckmarkCircleOutline, IoMdClose  } from 'react-icons/io';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { putConfirmationRDVFromId, putConfirmationPaiementFromId } from "../API/apiLocal";
 
 /* Grille d'informations */
@@ -16,8 +16,8 @@ export function MedicalActData(props) {
         { label: 'Sujet', value: props.metadata_1 }
       ];
       const champs_apres_confirmation = [
-        { label: 'Hôpital', value: props.hospital_id },
-        { label: 'Mutuelle', value: props.mutuelle_id },
+        { label: 'Hôpital', value: props.hospital_name },
+        { label: 'Mutuelle', value: props.mutuelle_name },
         { label: 'Date prévue', value: props.date_prevue },
         { label: 'Date de venue', value: props.date_venue },
         { label: 'Sujet', value: props.metadata_1 },
