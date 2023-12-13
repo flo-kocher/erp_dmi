@@ -52,10 +52,10 @@ export function MedicalActCard(props) {
     );
 }
 
-export function MedicalActGrid({data}) {
+export function MedicalActGrid({data, hospitals}) {
     return (
         Object.keys(data).map((key, index) => <>
-                <h5 key={"hospital"+index}>{getHospitalName(Number(key))}</h5>
+                <h5 key={"hospital"+index}>{getHospitalName(Number(key), hospitals)}</h5>
                 <MedicalActsGridItem key={"medicalAct"+index} data={data[key]}/>
             </>
         )

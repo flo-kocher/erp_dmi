@@ -1,30 +1,85 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { hospitals_data } from "../API/testDatas";
-import {getUserById} from "../API/apiClient";
-import axios from "axios";
+import { useState, useEffect } from "react";
+import { useUser } from "../Context/userContext";
+import { useNavigate, generatePath, useLocation } from "react-router-dom";
+import { data, hospitals_data } from "../API/testDatas";
+import { createMedicalAct } from "../API/apiClient";
 
 export default function AppointmentScreen() {
 	let navigate = useNavigate();
+    const { state } = useLocation();
 
+    const [user] = useUser();
     const [object, setObject] = useState("");
-    const [hospital, setHospital] = useState("");
+    const [hospitalId, setHospitalId] = useState("");
 	const [date, setDate] = useState("");
-    
+	const [time, setTime] = useState("");
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		
+        try{
+            const response = await createMedicalAct({
+                user_id: user.id,
+                hospital_id: hospitalId,
+                mutuelle_id: user.mutuelle_id,
+                metadata_1: object,
+                metadata_2: "",
+                montant_total: 0,
+                prise_en_charge_hopital: 0,
+                prise_en_charge_mutuelle: 0,
+                prise_en_charge_patient: 0,
+                confirmation_paiement_patient: false,
+                confirmation_mutuelle: false,
+                confirmation_rdv: false,
+                pourcentage_prise_en_charge: 0,
+                commentaire: "",
+                date_creation: null,
+                date_prevue: date + "T" + time + ":00.000Z",
+                date_venue: null
+            });
+        
+            if (response.status !== 200){
+
+                const newAct = {
+                    id: data.length + 1,
+                    user_id: user.id,
+                    hospital_id: hospitalId,
+                    mutuelle_id: user.mutuelle_id,
+                    metadata_1: object,
+                    metadata_2: "",
+                    montant_total: 150.0,
+                    prise_en_charge_hopital: 90.0,
+                    prise_en_charge_mutuelle: 50.0,
+                    prise_en_charge_patient: 10.0,
+                    confirmation_paiement_patient: false,
+                    confirmation_mutuelle: false,
+                    confirmation_rdv: false,
+                    pourcentage_prise_en_charge: 60,
+                    commentaire: "",
+                    date_creation: "",
+                    date_prevue: date,
+                    date_venue: ""
+                };
+                data.push(newAct);
+            }
+            const path = generatePath("/user/:idGr/MedicalActList", { idGr: user.id_graulande });
+            navigate(path);
+        }
+        catch (error){
+            console.error('Error in YourComponent:', error);
+        }
+    };
+	const handleChangeObject = (object) => {
+		setObject(object);
 	};
-	const handleChangeObject = (e) => {
-		setObject(e);
+	const handleChangeHospital = (hospitalId) => {
+		setHospitalId(hospitalId);
 	};
-	const handleChangeHospital = (e) => {
-		setHospital(e);
+    const handleChangeDate = (date) => {
+		setDate(date);
 	};
-    const handleChangeDate = (e) => {
-		setDate(e);
-	};
+    const handleChangeTime = (time) => {
+		setTime(time);
+    };
 	return <>
 		<div id="appointmentMainDiv">
             <a className="goBack" onClick={() => navigate(-1)}>Retour</a>
@@ -40,11 +95,11 @@ export default function AppointmentScreen() {
                     />
                 </div>
                 <div className="champ">
-                    <label for="hospitalSelect">Hôpital</label>
-                    <select id="hospitalSelect" onChange={handleChangeHospital}>
-						<option id="option-0" value="0">--Veuillez choisir une option--</option>
-						{hospitals_data.map((hospital) => {
-							return <option id={"option-" + hospital.id} value={hospital.id}>{hospital.name}</option>
+                    <label htmlFor="hospitalSelect">Hôpital</label>
+                    <select id="hospitalSelect" onChange={(e) => handleChangeHospital(e.target.value)}>
+						<option key="option-0" value="0">--Veuillez choisir une option--</option>
+						{state.hospitals.map((hospital) => {
+							return <option key={"option-" + hospital.id} value={hospital.id}>{hospital.name}</option>
 						})}
 					</select>
                 </div>
@@ -55,6 +110,15 @@ export default function AppointmentScreen() {
                         type="date"
                         value={date}
                         onChange={(e) => handleChangeDate(e.target.value)}
+                    />
+                </div>
+                <div className="champ">
+                    <label htmlFor="time">Heure prévue</label>
+                    <input
+                        name="time"
+                        type="time"
+                        value={time}
+                        onChange={(e) => handleChangeTime(e.target.value)}
                     />
                 </div>
 				<input type="submit" value="Valider la prise de rendez-vous"/>

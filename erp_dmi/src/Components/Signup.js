@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { users, mutuelles_data } from "../API/testDatas"
 import { createUser, getMutuelles} from "../API/apiClient";
@@ -12,6 +12,21 @@ export default function Signup() {
 	const [firstname, setFirstname] = useState("");
 	const [mutuelle, setMutuelle] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
+	const [mutuelles, setMutuelles] = useState([]);
+
+	useEffect(() => {
+        async function fetchData() {
+            //récupération des mutuelles
+            const response = await getMutuelles();
+            if (response.status === 200){
+                setMutuelles(response.data);
+            }
+            else{
+                setMutuelles(mutuelles_data);
+            }
+        }
+        fetchData();
+    },[]);
 
 	const handleChangeIdGraulandais = (e) => {
 		setidGraulandais(e);
@@ -56,16 +71,14 @@ export default function Signup() {
 				}
 				else{
 					const newUser = {
-						id: 3,
+						id: users.length + 1,
 						id_graulande: idGraulandais,
 						password: password,
 						name: name,
 						first_name:	firstname,
 						mutuelle: mutuelle
 					};
-					console.log(newUser);
 					users.push(newUser);
-					
 				}
 			}
 			navigate("/signin");
@@ -79,13 +92,6 @@ export default function Signup() {
 			setErrorMessage("Veuillez remplir tous les champs du formulaire.");
 		}
 	};
-	const responseMutuelle = getMutuelles();
-	let data; 
-	if(responseMutuelle.status ===200){
-		data = responseMutuelle.data;
-	}else{
-		data = mutuelles_data;
-	}
 
 	return (
 		<>
@@ -135,10 +141,10 @@ export default function Signup() {
 				<div className="champ">
 					<label>Votre mutuelle : </label>
 					<select id="mutuelle-select" onChange={handleChangeMutuelle}>
-						<option id="option-0" value="0">--Veuillez choisir une option--</option>
+						<option key="option-0" value="0">--Veuillez choisir une option--</option>
 						{
-						mutuelles_data.map((mutuelle) => {
-							return <option id={"option-" + mutuelle.id} value={mutuelle.id}>{mutuelle.name}</option>
+						mutuelles.map((mutuelle) => {
+							return <option key={"option-" + mutuelle.id} value={mutuelle.id}>{mutuelle.name}</option>
 						}
 						)}
 

@@ -1,7 +1,5 @@
-import {data, hospitals_data} from "../API/testDatas";
-
-export function getHospitalName(hospital_id) {
-    const hospitals = hospitals_data;
+export function getHospitalName(hospital_id, hospitalList) {
+    const hospitals = hospitalList;
 
     for(let i = 0; i < hospitals.length; i++) {
         if(hospitals[i].id === hospital_id)
@@ -46,8 +44,8 @@ function groupByHospital(acts) {
 }
 
 
-export function groupActsByPreviousAndPassedByHospital(id_graulande) {
-    let acts = data.filter(act => act.user_id === id_graulande).sort(compareDate);
+export function groupActsByPreviousAndPassedByHospital(userActList) {
+    let acts = userActList.sort(compareDate);
     acts = groupActs(acts);
     acts = groupByHospital(acts);
     return acts;
