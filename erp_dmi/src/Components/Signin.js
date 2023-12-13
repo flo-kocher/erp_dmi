@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useUser, useUserUpdate } from "../Context/userContext";
-import { signin } from "../API/apiLocal";
+import { useUserUpdate } from "../Context/userContext";
 import { useNavigate, generatePath } from "react-router-dom";
 import { users } from "../API/testDatas";
 
@@ -27,7 +26,7 @@ export default function Signin() {
 
 		if(userExists){
 			changeUser(connectedUser);
-			const path = generatePath("/user/:idGr/MedicalActs", { idGr });
+			const path = generatePath("/user/:idGr/MedicalActList", { idGr });
 			navigate(path);
 			setErrorMessage("");
 		}
@@ -38,7 +37,7 @@ export default function Signin() {
 		// if(response.statusCode==200){
 		// 	changeUser(response.username);
 		// 	navigate("/home/test")
-		// } 
+		// }
 	};
 	const handleUsernameChange = (e) => {
 		setIdGr(e);

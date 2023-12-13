@@ -1,7 +1,3 @@
-// import { toPay } from "User";
-import { getCardNumber } from "../API/apiLocal";
-
-
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -11,7 +7,7 @@ import {Link} from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { putConfirmationPaiementFromId } from "../API/apiLocal";
-import { IoMdCash, IoMdCheckmarkCircleOutline, IoMdClose  } from 'react-icons/io';
+import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 
 // Paiement d'un acte médical
 function Payment(props) {

@@ -6,8 +6,8 @@ import RequireAuth from "./Context/requireAuth";
 import { UserProvider } from "./Context/userContext";
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import MedicalActs from './Components/MedicalActs';
-import MedicalAct from "./Components/MedicalAct";
+import MedicalActList from './Components/MedicalActList';
+import MedicalActView from "./Components/MedicalActView";
 import Payment from "./Components/Payment";
 
 
@@ -19,9 +19,9 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 
                 <Route path={"/user/:idGr/"} element={<RequireAuth />}>
-                    <Route path="*" element={<Navigate to="MedicalActs"/>} />
-                    <Route path="MedicalActs" element={<MedicalActs/>} />
-                    <Route path="MedicalActs/:id/form" element={<MedicalAct/>} />
+                    <Route path="*" element={<Navigate to="MedicalActList"/>} />
+                    <Route path="MedicalActList" element={<MedicalActList/>} />
+                    <Route path="MedicalActList/:id/form" element={<MedicalActView/>} />
                 </Route>
                 <Route path="*" element={<Navigate to="/signin" />} />
             </Routes>

@@ -39,7 +39,7 @@ export let data = [
         "prise_en_charge_hopital": 90.0,
         "prise_en_charge_mutuelle": 50.0,
         "prise_en_charge_patient": 10.0,
-        "confirmation_paiement_patient": true,
+        "confirmation_paiement_patient": false,
         "confirmation_mutuelle": true,
         "confirmation_rdv": true,
         "pourcentage_prise_en_charge": 60,
@@ -81,12 +81,12 @@ export let data = [
         "prise_en_charge_patient": 20.0,
         "confirmation_paiement_patient": true,
         "confirmation_mutuelle": true,
-        "confirmation_rdv": true,
+        "confirmation_rdv": false,
         "pourcentage_prise_en_charge": 70,
         "commentaire": "Aucune anomalie détectée à l'échographie.",
         "date_creation": "2023-12-08T14:30:45.069Z",
-        "date_prevue": "2023-12-12T11:15:00.000Z",
-        "date_venue": "2023-12-12T11:30:00.000Z"
+        "date_prevue": "2023-12-16T11:15:00.000Z",
+        "date_venue": "2023-12-16T11:30:00.000Z"
     },
     {
         "id": 4,

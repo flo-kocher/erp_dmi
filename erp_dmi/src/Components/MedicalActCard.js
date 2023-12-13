@@ -6,9 +6,9 @@ import ButtonBase from '@mui/material/ButtonBase';
 import { FaArrowRightLong } from "react-icons/fa6";
 import {Link} from "react-router-dom";
 import {MedicalActsGridItem} from "./MedicalActsGridItem";
-import {getHospitalName} from "../utils/gridUtils";
+import {getHospitalName} from "../utils/medicalActsUtils";
 
-export function MedicalActsGrid(props) {
+export function MedicalActCard(props) {
     return (
         <Paper
             sx={{
@@ -31,7 +31,7 @@ export function MedicalActsGrid(props) {
                                 {new Date(props.date).toLocaleString()}
                             </Typography>
                             <Typography variant="body1" gutterBottom>
-                                {props.price}
+                                {props.price} €
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
                                 {props.comment}
@@ -52,7 +52,7 @@ export function MedicalActsGrid(props) {
     );
 }
 
-export function CreateMedicalActsGrid({data}) {
+export function MedicalActGrid({data}) {
     return (
         Object.keys(data).map((key, index) => <>
                 <h5>{getHospitalName(Number(key))}</h5>
