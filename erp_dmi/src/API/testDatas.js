@@ -275,3 +275,42 @@ export let hospitals_data = [
         "name": "Hôpital de Hautepierre"
     }
 ]
+
+export let mutuelles_data = [
+    {
+        "id": 1,
+        "name": "MGEN"
+    },
+    {
+        "id": 2,
+        "name": "Maaf Santé"
+    },
+    {
+        "id": 3,
+        "name": "MMA"
+    },
+    {
+        "id": 4,
+        "name": "Swiss Life"
+    },
+    {
+        "id": 5,
+        "name": "Matmut"
+    },
+    {
+        "id": 6,
+        "name": "Groupama"
+    },
+    {
+        "id": 7,
+        "name": "Axa Santé"
+    },
+    {
+        "id": 8,
+        "name": "MAIF"
+    },
+    {
+        "id": 9,
+        "name": "Allianz Santé"
+    }  
+]
