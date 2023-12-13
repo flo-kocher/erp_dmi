@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import './MedicalActs.css';
+import '../Css/MedicalActs.css';
 import { useNavigate } from 'react-router-dom';
 import { useUser, useUserUpdate } from "../Context/userContext";
 import Paper from '@mui/material/Paper';

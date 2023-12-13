@@ -8,6 +8,36 @@ form {
     margin: 10px;
 }
 
+form input[type="submit"]{
+    margin: 10px;
+    width: 50%;
+    min-width: fit-content;
+    align-self: center;
+    background-color: #ffffff;
+    box-shadow: 2px 5px 6px 0px #777;
+    border: black 1px solid;
+    font-size: 15px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+form input:not([type="submit"]), form select{
+    margin: 10px;
+    box-shadow: 2px 5px 6px 0px #777;
+    font-size: 15px;
+    padding: 10px;
+    border-top-width: 1px;
+    border-left-width: 1px;
+}
+
+form input[type="submit"]:hover{
+    box-shadow: 2px 5px 6px 0px #333333;
+}
+
+form label{
+    font-weight: bold;
+}
+
 form div {
     margin: 10px;
 }
@@ -17,7 +47,42 @@ form div {
     flex-direction: column;
 }
 
-a{
-    text-decoration: underline;
-    cursor: pointer;
+
+#signinMainDiv, #signupMainDiv {
+    display: flex;
+    flex-direction: column;
+}
+
+button{
+    top: 5%;
+    left: 5%;
+}
+
+.divForLink{
+    margin: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.link{
+    align-self: center;
+    margin: 10px;
+    width: 44%;
+    min-width: fit-content;
+    background-color: #ffffff;
+    box-shadow: 2px 5px 6px 0px #777;
+    border: black 1px solid;
+    font-size: 15px;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+    text-align: center;
+}
+
+.errorMessage{
+    color: rgba(174, 3, 3);
+    margin: 0 10px 0 10px;
+    align-self: center;
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../API/apiLocal";
-import { users } from "../API/testDatas"
+import { users, mutuelles_data } from "../API/testDatas"
 
 export default function Signup() {
 	let navigate = useNavigate();
@@ -11,6 +11,7 @@ export default function Signup() {
 	const [name, setName] = useState("");
 	const [firstname, setFirstname] = useState("");
 	const [mutuelle, setMutuelle] = useState("");
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const handleChangeIdGraulandais = (e) => {
 		setidGraulandais(e);
@@ -41,75 +42,94 @@ export default function Signup() {
 			name.trim() !== "" &&
 			mutuelle !== 0
 		) {
-			const newUser = {
-				id: 3,
-				id_graulande: idGraulandais,
-				password: password,
-				name: name,
-				first_name:	firstname,
-				mutuelle: mutuelle
-			};
-			console.log(newUser);
-			users.push(newUser);
-			navigate("/signin");
+			if(users.some(user => user.id_graulande === idGraulandais)){
+				setErrorMessage("Il existe déjà un compte utilisateur avec cette identifiant graulandais.");
+			}
+			else{
+				const newUser = {
+					id: 3,
+					id_graulande: idGraulandais,
+					password: password,
+					name: name,
+					first_name:	firstname,
+					mutuelle: mutuelle
+				};
+				console.log(newUser);
+				users.push(newUser);
+				navigate("/signin");
+			}
 			//signup({ parseInt(idGraulandais), password, name, firstname, mutuel, email });
+
+		}
+		else if(password !== passwordConfirm){
+			setErrorMessage("Votre mot de passe et sa confirmation ne sont pas identiques.");
+		}
+		else{
+			setErrorMessage("Veuillez remplir tous les champs du formulaire.");
 		}
 	};
 	return (
 		<>
-		<h1>Inscription</h1>
-		<form onSubmit={handleSubmit}>
-			<div class="champ">
-				<label>Votre identifiant Graulandais : </label>
-				<input
-					type="text"
-					value={idGraulandais}
-					onChange={(e) => handleChangeIdGraulandais(e.target.value)}
-				/>
+		<div id="signupMainDiv">
+			<h1>Inscription</h1>
+			<form onSubmit={handleSubmit}>
+				<div className="champ">
+					<label>Votre identifiant Graulandais : </label>
+					<input
+						type="number"
+						value={idGraulandais}
+						onChange={(e) => handleChangeIdGraulandais(e.target.value)}
+					/>
+				</div>
+				<div className="champ">
+					<label>Votre mot de passe : </label>
+					<input
+						type="password"
+						value={password}
+						onChange={(e) => handleChangePassword(e.target.value)}
+					/>
+				</div>
+				<div className="champ">
+					<label>Confirmez votre mot de passe : </label>
+					<input
+						type="password"
+						value={passwordConfirm}
+						onChange={(e) => handleChangePasswordConfirm(e.target.value)}
+					/>
+				</div>
+				<div className="champ">
+					<label>Votre nom : </label>
+					<input
+						type="text"
+						value={name}
+						onChange={(e) => handleChangeName(e.target.value)}
+					/>
+				</div>
+				<div className="champ">
+					<label>Votre prénom : </label>
+					<input
+						type="text"
+						value={firstname}
+						onChange={(e) => handleChangeFirstname(e.target.value)}
+					/>
+				</div>
+				<div className="champ">
+					<label>Votre mutuelle : </label>
+					<select id="mutuelle-select" onChange={handleChangeMutuelle}>
+						<option id="option-0" value="0">--Veuillez choisir une option--</option>
+						{mutuelles_data.map((mutuelle) => {
+							return <option id={"option-" + mutuelle.id} value={mutuelle.id}>{mutuelle.name}</option>
+						})}
+
+					</select>
+				</div>
+				<input type="submit" value="Confirmer l'inscription"/>
+			</form>
+			<label className="errorMessage">{errorMessage}</label>
+			<div className="divForLink">
+				<Link to="/signin" className="link">Déjà un compte ?</Link>
 			</div>
-			<div class="champ">
-				<label>Votre mot de passe : </label>
-				<input
-					type="password"
-					value={password}
-					onChange={(e) => handleChangePassword(e.target.value)}
-				/>
-			</div>
-			<div class="champ">
-				<label>Confirmez votre mot de passe : </label>
-				<input
-					type="password"
-					value={passwordConfirm}
-					onChange={(e) => handleChangePasswordConfirm(e.target.value)}
-				/>
-			</div>
-			<div class="champ">
-				<label>Votre nom : </label>
-				<input
-					type="text"
-					value={name}
-					onChange={(e) => handleChangeName(e.target.value)}
-				/>
-			</div>
-			<div class="champ">
-				<label>Votre prénom : </label>
-				<input
-					type="text"
-					value={firstname}
-					onChange={(e) => handleChangeFirstname(e.target.value)}
-				/>
-			</div>
-			<div class="champ">
-				<label>Votre mutuelle : </label>
-				<select id="mutuelle-select" onChange={handleChangeMutuelle}>
-					<option value="0">--Veuillez choisir une option--</option>
-					<option value="1">Mgen</option>
-					<option value="2">TrucMuche</option>
-				</select>
-			</div>
-			<input type="submit" />
-		</form>
-		<Link to="/signin">Déjà un compte ?</Link>
+		</div>
 		</>
 	);
 }

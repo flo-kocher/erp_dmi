@@ -47,26 +47,29 @@ export default function Signin() {
 		setPassword(e);
 	};
 	return <>
-		<h1>Connexion</h1>
-		<form onSubmit={handleSubmit}>
-			<label htmlFor="idGr">Identifiant Graulandais</label>
-			<input
-				name="idGr"
-				type="text"
-				value={idGr}
-				onChange={(e) => handleUsernameChange(e.target.value)}
-			/>
-			<label htmlFor="password">Mot de passe</label>
-			<input
-				name="password"
-				type="password"
-				value={password}
-				onChange={(e) => handlePasswordChange(e.target.value)}
-			/>
-			<input type="submit" />
-		</form>
-		<label id="errorMessage">{errorMessage}</label>
-		<br/>
-		<Link to="/signup">Pas encore de compte ?</Link>
+		<div id="signinMainDiv">
+			<h1>Connexion</h1>
+			<form onSubmit={handleSubmit}>
+				<label htmlFor="idGr">Identifiant Graulandais</label>
+				<input
+					name="idGr"
+					type="text"
+					value={idGr}
+					onChange={(e) => handleUsernameChange(e.target.value)}
+				/>
+				<label htmlFor="password">Mot de passe</label>
+				<input
+					name="password"
+					type="password"
+					value={password}
+					onChange={(e) => handlePasswordChange(e.target.value)}
+				/>
+				<input type="submit" value="Se connecter"/>
+			</form>
+			<label className="errorMessage">{errorMessage}</label>
+			<div className="divForLink">
+				<Link to="/signup" className="link">Pas encore de compte ?</Link>
+			</div>
+		</div>
 	</>;
 }
