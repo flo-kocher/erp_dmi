@@ -82,8 +82,6 @@ export default function Signup() {
 				}
 			}
 			navigate("/signin");
-			//signup({ parseInt(idGraulandais), password, name, firstname, mutuel, email });
-
 		}
 		else if(password !== passwordConfirm){
 			setErrorMessage("Votre mot de passe et sa confirmation ne sont pas identiques.");
