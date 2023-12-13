@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signup } from "../API/apiLocal";
 import { users, mutuelles_data } from "../API/testDatas"
 
 export default function Signup() {
