@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { users, mutuelles_data } from "../API/testDatas"
+import { createUser, getMutuelles} from "../API/apiClient";
 
 export default function Signup() {
 	let navigate = useNavigate();
@@ -41,21 +42,33 @@ export default function Signup() {
 			name.trim() !== "" &&
 			mutuelle !== 0
 		) {
-			if(users.some(user => user.id_graulande === idGraulandais)){
-				setErrorMessage("Il existe déjà un compte utilisateur avec cette identifiant graulandais.");
+			const newUser = {
+				id_graulande: idGraulandais,
+				password: password,
+				name: name,
+				first_name:	firstname,
+				mutuelle: mutuelle
+			};
+			const response = createUser(newUser);
+			if(response.status !== 200){
+				if(users.some(user => user.id_graulande === idGraulandais)){
+					setErrorMessage("Il existe déjà un compte utilisateur avec cette identifiant graulandais.");
+				}
+				else{
+					const newUser = {
+						id: 3,
+						id_graulande: idGraulandais,
+						password: password,
+						name: name,
+						first_name:	firstname,
+						mutuelle: mutuelle
+					};
+					console.log(newUser);
+					users.push(newUser);
+					
+				}
 			}
-			else{
-				const newUser = {
-					id: 3,
-					id_graulande: idGraulandais,
-					password: password,
-					name: name,
-					first_name:	firstname,
-					mutuelle: mutuelle
-				};
-				users.push(newUser);
-				navigate("/signin");
-			}
+			navigate("/signin");
 			//signup({ parseInt(idGraulandais), password, name, firstname, mutuel, email });
 
 		}
@@ -66,6 +79,14 @@ export default function Signup() {
 			setErrorMessage("Veuillez remplir tous les champs du formulaire.");
 		}
 	};
+	const responseMutuelle = getMutuelles();
+	let data; 
+	if(responseMutuelle.status ===200){
+		data = responseMutuelle.data;
+	}else{
+		data = mutuelles_data;
+	}
+
 	return (
 		<>
 		<div id="signupMainDiv">
@@ -115,9 +136,11 @@ export default function Signup() {
 					<label>Votre mutuelle : </label>
 					<select id="mutuelle-select" onChange={handleChangeMutuelle}>
 						<option id="option-0" value="0">--Veuillez choisir une option--</option>
-						{mutuelles_data.map((mutuelle) => {
+						{
+						mutuelles_data.map((mutuelle) => {
 							return <option id={"option-" + mutuelle.id} value={mutuelle.id}>{mutuelle.name}</option>
-						})}
+						}
+						)}
 
 					</select>
 				</div>

@@ -1,5 +1,5 @@
 import { checkStatus } from "../utils/checkStatus";
-import {authenticateUser, getUserById} from "./apiClient";
+import {authenticateUser, getUserById, updateMedicalAct, getMedicalActById} from "./apiClient";
 import { data } from "./testDatas";
 
 //EXEMPLE DE FONCTION 
@@ -31,7 +31,10 @@ export const signin = async ({idGr, password}) => {
 
 //Get only one act medical
 export const getMedicalActFromId = (id) => {
-      
+    let responseGet = getMedicalActById(id);
+    if(responseGet.status === 200){
+     return responseGet.data;
+    }
     for(let i = 0; i < data.length; i++)
     {
         if(id == data[i].id)
@@ -64,7 +67,14 @@ export const getMedicalActFromId = (id) => {
 export const putConfirmationRDVFromId = ( idMedical, confirmationRDV ) => {
     // window.location.reload();
     // console.log(data[idMedical-1])
-    data[idMedical-1]['confirmation_rdv'] = confirmationRDV
+    let responseGet = getMedicalActById(idMedical);
+    if(responseGet.status === 200){
+        let data = responseGet.data;
+        data["confirmation_rdv"] = confirmationRDV;
+        updateMedicalAct(idMedical, data);
+    }else{
+        data[idMedical-1]['confirmation_rdv'] = confirmationRDV
+    }
     // fetch("http://localhost:4200/signup", {
     //     method: "put",
     //     headers: {
@@ -77,7 +87,15 @@ export const putConfirmationRDVFromId = ( idMedical, confirmationRDV ) => {
 export const putConfirmationPaiementFromId = ( idMedical, confirmationPaiement ) => {
     // window.location.reload();
     // console.log(data[idMedical-1])
-    data[idMedical-1]['confirmation_paiement_patient'] = confirmationPaiement
+    let responseGet = getMedicalActById(idMedical);
+    if(responseGet.status === 200){
+        let data = responseGet.data;
+        data["confirmation_paiement_patient"] = confirmationPaiement;
+        updateMedicalAct(idMedical, data);
+    }else{
+        data[idMedical-1]['confirmation_paiement_patient'] = confirmationPaiement
+    }
+    
     // fetch("http://localhost:4200/signup", {
     //     method: "put",
     //     headers: {
