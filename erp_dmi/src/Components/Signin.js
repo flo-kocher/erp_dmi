@@ -20,11 +20,14 @@ export default function Signin() {
 		let connectedUser = null;
 		let response = null;
 		try{
-			response = await getUserById(idGr);
-			if (response.status === 200){
-				userExists = true;
-				connectedUser = response.data;
-			}else {
+			// response = await getUserById(idGr);
+			// if (response.status === 200){
+			// 	userExists = true;
+			// 	connectedUser = response.data;
+			// }else {
+				console.log(users);
+				console.log(password);
+				console.log(idGr);
 				users.forEach(u => {
 					if(u.id_graulande == idGr && u.password == password)
 					{
@@ -32,7 +35,7 @@ export default function Signin() {
 						connectedUser = u;
 					}
 				});
-			}
+			// }
 		}catch(error) {
 			if (axios.isAxiosError(error)) {
 				// AxiosError
