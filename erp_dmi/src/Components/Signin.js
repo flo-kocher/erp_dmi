@@ -4,6 +4,8 @@ import { useUser, useUserUpdate } from "../Context/userContext";
 import { signin } from "../API/apiLocal";
 import { useNavigate, generatePath } from "react-router-dom";
 import { users } from "../API/testDatas";
+import {getUserById} from "../API/apiClient";
+import axios from "axios";
 
 export default function Signin() {
 	let navigate = useNavigate();
@@ -17,14 +19,48 @@ export default function Signin() {
 		e.preventDefault();
 		let userExists = false;
 		let connectedUser = null;
-		users.forEach(u => {
-			if(u.id_graulande == idGr && u.password == password)
-			{
+		let response = null;
+		try{
+			response = await getUserById(idGr);
+			if (response.status === 200){
 				userExists = true;
-				connectedUser = u;
+				connectedUser = response.data;
+			}else {
+				users.forEach(u => {
+					if(u.id_graulande == idGr && u.password == password)
+					{
+						userExists = true;
+						connectedUser = u;
+					}
+				});
 			}
-		});
-
+		}catch(error) {
+			if (axios.isAxiosError(error)) {
+				// AxiosError
+				if (error.response) {
+					// The request was made and the server responded with a status code
+					// other than 2xx (e.g., 404, 500)
+					console.error('Server responded with an error status:', error.response.status);
+					console.error('Response data:', error.response.data);
+				} else if (error.request) {
+					// The request was made but no response was received
+					console.error('No response received from the server');
+					console.error('Request details:', error.request);
+				} else {
+					// Something happened in setting up the request
+					console.error('Error setting up the request:', error.message);
+				}
+			}
+		}
+		if(!userExists){
+			users.forEach(u => {
+				if(u.id_graulande == idGr && u.password == password)
+				{
+					userExists = true;
+					connectedUser = u;
+				}
+			});
+		}
 		if(userExists){
 			changeUser(connectedUser);
 			const path = generatePath("/user/:idGr/MedicalActs", { idGr });
