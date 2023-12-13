@@ -55,8 +55,8 @@ export function MedicalActCard(props) {
 export function MedicalActGrid({data}) {
     return (
         Object.keys(data).map((key, index) => <>
-                <h5>{getHospitalName(Number(key))}</h5>
-                <MedicalActsGridItem data={data[key]}/>
+                <h5 key={"hospital"+index}>{getHospitalName(Number(key))}</h5>
+                <MedicalActsGridItem key={"medicalAct"+index} data={data[key]}/>
             </>
         )
     );

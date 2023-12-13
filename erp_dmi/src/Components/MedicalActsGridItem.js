@@ -5,7 +5,7 @@ export function MedicalActsGridItem({data}) {
         data.map((act, index) => {
             return (
                 <MedicalActCard
-                    key={act['id']}
+                    key={"medicalActCard"+index}
                     id={act['id']}
                     date={act['date_prevue']}
                     intervention={act['metadata_1']}

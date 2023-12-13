@@ -53,7 +53,6 @@ export default function Signup() {
 					first_name:	firstname,
 					mutuelle: mutuelle
 				};
-				console.log(newUser);
 				users.push(newUser);
 				navigate("/signin");
 			}
