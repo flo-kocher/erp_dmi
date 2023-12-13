@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
 import '../Css/MedicalActList.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, generatePath } from 'react-router-dom';
 import { useUser, useUserUpdate } from "../Context/userContext";
 import Paper from '@mui/material/Paper';
 import { MedicalActGrid } from "./MedicalActCard";
@@ -26,6 +26,12 @@ function MedicalActList() {
         navigate("/signin");
     }
 
+    const handleAppointment = () => {
+        const idGr = user.id_graulande;
+        const path = generatePath("/user/:idGr/Appointment", { idGr });
+        navigate(path);
+    }
+
     let grouped_acts_by_hospital = groupActsByPreviousAndPassedByHospital(user.id_graulande);
 
     let passe = <p>Aucun acte médical trouvé</p>
@@ -41,8 +47,10 @@ function MedicalActList() {
 
     return (
         <div>
-            <button onClick={() => handleLogoff()}>Déconnexion</button>
-
+            <div id="buttons">
+                <button onClick={() => handleLogoff()}>Déconnexion</button>
+                <button onClick={() => handleAppointment()}>Prendre un rendez-vous</button>
+            </div>
             <div className="MedicalActsContent">
                 <div className="row">
                     <h1>Actes médicaux de {user.first_name} {user.name}</h1>

@@ -25,9 +25,6 @@ export default function Signin() {
 				userExists = true;
 				connectedUser = response.data;
 			}else {
-				console.log(users);
-				console.log(password);
-				console.log(idGr);
 				users.forEach(u => {
 					if(u.id_graulande == idGr && u.password == password)
 					{
