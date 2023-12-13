@@ -30,13 +30,13 @@ function MedicalActList() {
 
     let passe = <p>Aucun acte médical trouvé</p>
     if (Object.keys(grouped_acts_by_hospital.passe).length > 0) {
-        passe = <MedicalActGrid data={grouped_acts_by_hospital.passe}/>
+        passe = <MedicalActGrid key="previousMedicalActs" data={grouped_acts_by_hospital.passe}/>
     }
 
     let prevu = <p>Aucun acte médical trouvé</p>
 
     if (Object.keys(grouped_acts_by_hospital.prevu).length > 0) {
-        prevu = <MedicalActGrid data={grouped_acts_by_hospital.prevu}/>
+        prevu = <MedicalActGrid key="nextMedicalActs" data={grouped_acts_by_hospital.prevu}/>
     }
 
     return (
