@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { users, mutuelles_data } from "../API/testDatas"
 import { createUser, getMutuelles} from "../API/apiClient";
 
-export default async function Signup() {
+export default function Signup() {
 	let navigate = useNavigate();
 	const [idGraulandais, setidGraulandais] = useState("");
 	const [password, setPassword] = useState("");
@@ -79,13 +79,13 @@ export default async function Signup() {
 			setErrorMessage("Veuillez remplir tous les champs du formulaire.");
 		}
 	};
-	const responseMutuelle = await getMutuelles();
+	// const responseMutuelle = await getMutuelles();
 	let data; 
-	if(responseMutuelle.status ===200){
-		data = responseMutuelle.data;
-	}else{
+	// if(responseMutuelle.status ===200){
+	// 	data = responseMutuelle.data;
+	// }else{
 		data = mutuelles_data;
-	}
+	// }
 	console.log(data)
 
 	return (
