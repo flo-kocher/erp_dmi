@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Define base URL for your API
-const baseURL = 'https://a8e4-2a01-cb10-d4-2b00-de22-5e32-70d3-8e8a.ngrok-free.app';
+const baseURL = "http://test:8080"//'https://a8e4-2a01-cb10-d4-2b00-de22-5e32-70d3-8e8a.ngrok-free.app';
 
 // User-related operations
 export const getUsers = () => axios.get(`${baseURL}/user`);

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { users, mutuelles_data } from "../API/testDatas"
 import { createUser, getMutuelles} from "../API/apiClient";
 
-export default function Signup() {
+export default async function Signup() {
 	let navigate = useNavigate();
 	const [idGraulandais, setidGraulandais] = useState("");
 	const [password, setPassword] = useState("");
@@ -49,8 +49,8 @@ export default function Signup() {
 				first_name:	firstname,
 				mutuelle: mutuelle
 			};
-			const response = createUser(newUser);
-			if(response.status !== 200){
+			// const response = createUser(newUser);
+			// if(response.status !== 200){
 				if(users.some(user => user.id_graulande === idGraulandais)){
 					setErrorMessage("Il existe déjà un compte utilisateur avec cette identifiant graulandais.");
 				}
@@ -67,7 +67,7 @@ export default function Signup() {
 					users.push(newUser);
 					
 				}
-			}
+			// }
 			navigate("/signin");
 			//signup({ parseInt(idGraulandais), password, name, firstname, mutuel, email });
 
@@ -79,13 +79,14 @@ export default function Signup() {
 			setErrorMessage("Veuillez remplir tous les champs du formulaire.");
 		}
 	};
-	const responseMutuelle = getMutuelles();
+	const responseMutuelle = await getMutuelles();
 	let data; 
 	if(responseMutuelle.status ===200){
 		data = responseMutuelle.data;
 	}else{
 		data = mutuelles_data;
 	}
+	console.log(data)
 
 	return (
 		<>
@@ -136,12 +137,11 @@ export default function Signup() {
 					<label>Votre mutuelle : </label>
 					<select id="mutuelle-select" onChange={handleChangeMutuelle}>
 						<option id="option-0" value="0">--Veuillez choisir une option--</option>
-						{
-						mutuelles_data.map((mutuelle) => {
+						
+						{data.map((mutuelle) => {
 							return <option id={"option-" + mutuelle.id} value={mutuelle.id}>{mutuelle.name}</option>
 						}
 						)}
-
 					</select>
 				</div>
 				<input type="submit" value="Confirmer l'inscription"/>
