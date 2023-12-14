@@ -6,7 +6,7 @@ import { useUser, useUserUpdate } from "../Context/userContext";
 import Paper from '@mui/material/Paper';
 import { MedicalActGrid } from "./MedicalActCard";
 import { groupActsByPreviousAndPassedByHospital } from "../utils/medicalActsUtils";
-import { getMedicalActs, getHospitals, getMutuelles } from "../API/apiClient";
+import { getUserMedicalActs, getHospitals, getMutuelles } from "../API/apiClient";
 import { data, hospitals_data, mutuelles_data } from "../API/testDatas";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -27,6 +27,8 @@ function MedicalActList() {
     const [medicalActs, setMedicalActs] = useState([]);
     const [hospitals, setHospitals] = useState([]);
     const [mutuelles, setMutuelles] = useState([]);
+    const [prevu, setPrevu] = useState([]);
+    const [passe, setPasse] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -47,7 +49,7 @@ function MedicalActList() {
                 setMutuelles(mutuelles_data);
             }
             //récupération des actes médicaux
-            response = await getMedicalActs();
+            response = await getUserMedicalActs(user.id);
             if (response.status === 200){
                 setMedicalActs(response.data);
             }
@@ -58,6 +60,18 @@ function MedicalActList() {
         fetchData();
     },[]);
 
+    useEffect(() => {
+        let grouped_acts_by_hospital = groupActsByPreviousAndPassedByHospital(medicalActs);
+        // console.log(grouped_acts_by_hospital);
+        if (grouped_acts_by_hospital != null && Object.keys(grouped_acts_by_hospital.passe).length > 0) {
+            setPasse(grouped_acts_by_hospital.passe);
+        }
+
+        if (grouped_acts_by_hospital != null && Object.keys(grouped_acts_by_hospital.prevu).length > 0) {
+            setPrevu(grouped_acts_by_hospital.prevu);
+        }
+    },[medicalActs]);
+
     const handleLogoff = () => {
         userChange(null);
         navigate("/signin");
@@ -67,20 +81,6 @@ function MedicalActList() {
         const path = generatePath("/user/:idGr/Appointment", { idGr: user.id_graulande });
         navigate(path, { state: { hospitals: hospitals }});
     }
-
-    let grouped_acts_by_hospital = groupActsByPreviousAndPassedByHospital(medicalActs);
-
-    let passe = <p>Aucun acte médical trouvé</p>
-    if (Object.keys(grouped_acts_by_hospital.passe).length > 0) {
-        passe = <MedicalActGrid key="previousMedicalActs" data={grouped_acts_by_hospital.passe} hospitals={hospitals} mutuelles={mutuelles}/>
-    }
-
-    let prevu = <p>Aucun acte médical trouvé</p>
-
-    if (Object.keys(grouped_acts_by_hospital.prevu).length > 0) {
-        prevu = <MedicalActGrid key="nextMedicalActs" data={grouped_acts_by_hospital.prevu} hospitals={hospitals} mutuelles={mutuelles}/>
-    }
-
     return (
         <div>
             <div id="buttons">
@@ -91,9 +91,9 @@ function MedicalActList() {
                 <div className="row">
                     <h1>Actes médicaux de {user.first_name} {user.name}</h1>
                     <h3>Actes médicaux prévus</h3>
-                    {prevu}
+                    <MedicalActGrid key="nextMedicalActs" data={prevu} hospitals={hospitals} mutuelles={mutuelles}/> 
                     <h3>Actes médicaux passés</h3>
-                    {passe}
+                    <MedicalActGrid key="previousMedicalActs" data={passe} hospitals={hospitals} mutuelles={mutuelles}/>
                 </div>
             </div>
         </div>

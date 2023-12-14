@@ -15,6 +15,7 @@ export const authenticateUser = (user) => axios.post(`${baseURL}/user/auth`, use
 
 // Medical Act-related operations
 export const getMedicalActs = () => axios.get(`${baseURL}/medical_act`);
+export const getUserMedicalActs = (user_id) => axios.get(`${baseURL}/medical_act/user/${user_id}`);
 export const createMedicalAct = (medicalAct) => axios.post(`${baseURL}/medical_act`, medicalAct);
 export const getMedicalActById = (id) => axios.get(`${baseURL}/medical_act/${id}`);
 export const updateMedicalAct = (id, medicalAct) => axios.put(`${baseURL}/medical_act/${id}`, medicalAct);

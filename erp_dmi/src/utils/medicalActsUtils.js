@@ -56,8 +56,11 @@ function groupByHospital(acts) {
 
 
 export function groupActsByPreviousAndPassedByHospital(userActList) {
-    let acts = userActList.sort(compareDate);
-    acts = groupActs(acts);
-    acts = groupByHospital(acts);
-    return acts;
+    if(userActList != null){
+        let acts = userActList.sort(compareDate);
+        acts = groupActs(acts);
+        acts = groupByHospital(acts);
+        return acts;
+    }
+    return [];
 }

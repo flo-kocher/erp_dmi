@@ -53,12 +53,16 @@ export function MedicalActCard(props) {
 }
 
 export function MedicalActGrid({data, hospitals, mutuelles}) {
-    console.log(data);
     return (
-        Object.keys(data).map((key, index) => <>
-                <h5 key={"hospital"+index}>{getHospitalName(Number(key), hospitals)}</h5>
-                <MedicalActsGridItem key={"medicalAct"+index} data={data[key]} hospital_name={getHospitalName(Number(key), hospitals)} mutuelles={mutuelles}/>
-            </>
-        )
+        <div>
+            {data != {} ?
+                Object.keys(data).map((key, index) => <>
+                    <h5 key={"hospital"+index}>{getHospitalName(Number(key), hospitals)}</h5>
+                    <MedicalActsGridItem key={"medicalAct"+index} data={data[key]} hospital_name={getHospitalName(Number(key), hospitals)} mutuelles={mutuelles}/>
+                </>)
+                : 
+                <p>Aucun acte médical trouvé</p>
+            } 
+        </div>
     );
 }

@@ -62,10 +62,11 @@ export default function Signup() {
 				password: password,
 				name: name,
 				first_name:	firstname,
-				mutuelle: mutuelle
+				mutuelle_id: mutuelle
 			};
-			const response = createUser(newUser);
-			if(response.status !== 200){
+			//console.log(newUser);
+			const response = await createUser(newUser);
+			if(response.status !== 201){
 				if(users.some(user => user.id_graulande === idGraulandais)){
 					setErrorMessage("Il existe déjà un compte utilisateur avec cette identifiant graulandais.");
 				}
@@ -138,7 +139,7 @@ export default function Signup() {
 				</div>
 				<div className="champ">
 					<label>Votre mutuelle : </label>
-					<select id="mutuelle-select" onChange={handleChangeMutuelle}>
+					<select id="mutuelle-select" onChange={(e) => handleChangeMutuelle(e.target.value)}>
 						<option key="option-0" value="0">--Veuillez choisir une option--</option>
 						{
 						mutuelles.map((mutuelle) => {
