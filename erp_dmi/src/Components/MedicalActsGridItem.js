@@ -1,6 +1,14 @@
 import { MedicalActCard } from "./MedicalActCard";
 import { getMutuelleName } from "../utils/medicalActsUtils";
 
+/**
+ * Affichage de l'ensemble d'un item d'une grid d'actes médicaux.
+ * @param data
+ * @param hospital_name
+ * @param mutuelles
+ * @returns {*}
+ * @constructor
+ */
 export function MedicalActsGridItem({data, hospital_name, mutuelles}) {
     return (
         data.map((act, index) => {

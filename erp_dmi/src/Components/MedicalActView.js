@@ -6,7 +6,11 @@ import { getMedicalActById } from "../API/apiClient";
 import { data } from "../API/testDatas";
 
 
-// Page d'un acte Médical
+/**
+ * Visualisation d'un acte médical.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function MedicalActView() {
     let { state } = useLocation();
     let navigate = useNavigate();

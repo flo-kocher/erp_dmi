@@ -1,5 +1,8 @@
 //data test
 
+/*
+User data test
+ */
 export let users = [
     {
         id: 1,
@@ -27,6 +30,9 @@ export let users = [
     }
 ]
 
+/*
+Medical act data test
+ */
 export let data = [
     {
         "id": 1,
@@ -230,33 +236,9 @@ export let data = [
     }
 ]
 
-export const getMedicalActsList = () => {
-    return [
-        {
-            'id': 1,
-            'date': '01/01/2000',
-            'location': 'Dr. House',
-            'intervention': 'X_VMED_01',
-            'comment': "Je réalise un commentaire constructif",
-            "confirmation_rdv": true,
-            'price': 50,
-            'support_price': 10,
-            'remaining_price': 50-10
-        },
-        {
-            'id': 2,
-            'date': '22/12/2025',
-            'location': 'Domicile',
-            'intervention': 'X_CONS_01',
-            'comment': "Commentaire sur l'état de l'acte médical",
-            "confirmation_rdv": false,
-            'price': 200,
-            'support_price': 180,
-            'remaining_price': 200-180
-        }
-    ]
-}
-
+/*
+Hospital data test
+ */
 export let hospitals_data = [
     {
         "id": 201,
@@ -276,6 +258,9 @@ export let hospitals_data = [
     }
 ]
 
+/*
+Mutuelle data test
+ */
 export let mutuelles_data = [
     {
         "id": 1,
@@ -312,5 +297,5 @@ export let mutuelles_data = [
     {
         "id": 9,
         "name": "Allianz Santé"
-    }  
+    }
 ]

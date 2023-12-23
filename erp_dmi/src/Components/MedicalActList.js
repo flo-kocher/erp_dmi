@@ -9,16 +9,11 @@ import { groupActsByPreviousAndPassedByHospital } from "../utils/medicalActsUtil
 import { getUserMedicalActs, getHospitals, getMutuelles } from "../API/apiClient";
 import { data, hospitals_data, mutuelles_data } from "../API/testDatas";
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
-
-/** Affichage de la page 'Actes médicaux' permettant de visualiser les actes médicaux
- * */
+/**
+ * Affichage de la page 'Actes médicaux' permettant de visualiser l'ensemble de ses actes médicaux.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function MedicalActList() {
     const navigate = useNavigate();
 
@@ -91,7 +86,7 @@ function MedicalActList() {
                 <div className="row">
                     <h1>Actes médicaux de {user.first_name} {user.name}</h1>
                     <h3>Actes médicaux prévus</h3>
-                    <MedicalActGrid key="nextMedicalActs" data={prevu} hospitals={hospitals} mutuelles={mutuelles}/> 
+                    <MedicalActGrid key="nextMedicalActs" data={prevu} hospitals={hospitals} mutuelles={mutuelles}/>
                     <h3>Actes médicaux passés</h3>
                     <MedicalActGrid key="previousMedicalActs" data={passe} hospitals={hospitals} mutuelles={mutuelles}/>
                 </div>

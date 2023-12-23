@@ -8,11 +8,16 @@ import { Link } from "react-router-dom";
 import { putConfirmationRDVFromId, putConfirmationPaiementFromId } from "../API/apiLocal";
 import { useState, useEffect } from "react";
 
-/* Grille d'informations */
+/**
+ * Visualisation de l'ensemble des données lié à un acte médical dans une Card/Paper.
+ * Les informations affichés sont soit celles d'un acte confirmé, soit celle d'un acte en cours de confirmation.
+ * @param act
+ * @param champs_avant_confirmation
+ * @param champs_apres_confirmation
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function MedicalActData({act, champs_avant_confirmation, champs_apres_confirmation}) {
-	// console.log(act)	;
-	// console.log(champs_avant_confirmation)	;
-	// console.log(champs_apres_confirmation);
 	const regexForHopital = /^.*_hopital$/;
 	const regexForMutuelle = /^.*_mutuelle$/;
 	const regexForPatient = /^.*_patient$/;

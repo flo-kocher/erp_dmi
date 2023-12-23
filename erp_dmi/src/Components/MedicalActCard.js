@@ -8,6 +8,12 @@ import { Link } from "react-router-dom";
 import { MedicalActsGridItem } from "./MedicalActsGridItem";
 import { getHospitalName } from "../utils/medicalActsUtils";
 
+/**
+ * Visualisation d'un résumé d'un acte médical à l'intérieur d'une Card/Paper.
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function MedicalActCard(props) {
     return (
         <Paper
@@ -39,7 +45,7 @@ export function MedicalActCard(props) {
                         </Grid>
                     </Grid>
                     <Grid item>
-                        {/* Go to the medical act with ID : props.id */}
+                        {/* Aller à l'acte medical avec l'ID : props.id */}
                         <Link to={`${props.id}/form`} state={props}>
                             <ButtonBase sx={{ width: 128, height: 128 }}>
                                 <FaArrowRightLong/>
@@ -52,6 +58,14 @@ export function MedicalActCard(props) {
     );
 }
 
+/**
+ * Création d'une grid contenant une liste d'actes médicaux
+ * @param data
+ * @param hospitals
+ * @param mutuelles
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function MedicalActGrid({data, hospitals, mutuelles}) {
     return (
         <div>
@@ -60,9 +74,9 @@ export function MedicalActGrid({data, hospitals, mutuelles}) {
                     <h5 key={"hospital"+index}>{getHospitalName(Number(key), hospitals)}</h5>
                     <MedicalActsGridItem key={"medicalAct"+index} data={data[key]} hospital_name={getHospitalName(Number(key), hospitals)} mutuelles={mutuelles}/>
                 </>)
-                : 
+                :
                 <p>Aucun acte médical trouvé</p>
-            } 
+            }
         </div>
     );
 }

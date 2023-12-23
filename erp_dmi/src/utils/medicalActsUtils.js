@@ -1,3 +1,9 @@
+/**
+ * Récupération du nom de l'hôpital en fonction d'un ID donné.
+ * @param hospital_id
+ * @param hospitalList
+ * @returns {*|string}
+ */
 export function getHospitalName(hospital_id, hospitalList) {
     const hospitals = hospitalList;
 
@@ -8,6 +14,12 @@ export function getHospitalName(hospital_id, hospitalList) {
     return "Hôpital de secours";
 }
 
+/**
+ * Récupération du nom d'une mutuelle en fonction d'un ID donné.
+ * @param mutuelle_id
+ * @param mutuelleList
+ * @returns {*|string}
+ */
 export function getMutuelleName(mutuelle_id, mutuelleList) {
     const mutuelles = mutuelleList;
     // console.log(mutuelleList);
@@ -19,6 +31,12 @@ export function getMutuelleName(mutuelle_id, mutuelleList) {
     return "Mutuelle de secours";
 }
 
+/**
+ * Fonction de comparaison entre 2 dates données.
+ * @param a
+ * @param b
+ * @returns {number}
+ */
 function compareDate(a, b) {
     a = a.date_prevue;
     b = b.date_prevue;
@@ -31,6 +49,11 @@ function compareDate(a, b) {
     return 0;
 }
 
+/**
+ * Regroupe les actes médicaux entre actes prévus et actes passés, en fonction de la date actuelle.
+ * @param acts
+ * @returns {{passe: *[], prevu: *[]}}
+ */
 function groupActs(acts) {
     let grouped_acts = {
         prevu: [],
@@ -48,13 +71,23 @@ function groupActs(acts) {
     return grouped_acts;
 }
 
+/**
+ * Regroupe les actes médicaux par hôpital.
+ * @param acts
+ * @returns {*}
+ */
 function groupByHospital(acts) {
     acts.passe = Object.groupBy(acts.passe, ({hospital_id}) => hospital_id);
     acts.prevu = Object.groupBy(acts.prevu, ({hospital_id}) => hospital_id);
     return acts
 }
 
-
+/**
+ * Fonction qui à partir d'une liste d'actes médicaux, les regroupe par hôpital et en fonction de s'ils sont prévus,
+ * ou passés.
+ * @param userActList
+ * @returns {*|*[]}
+ */
 export function groupActsByPreviousAndPassedByHospital(userActList) {
     if(userActList != null){
         let acts = userActList.sort(compareDate);
