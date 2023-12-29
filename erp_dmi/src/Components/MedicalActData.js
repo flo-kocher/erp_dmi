@@ -3,10 +3,9 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 
-import { IoMdCash, IoMdCheckmarkCircleOutline, IoMdClose  } from 'react-icons/io';
+import { IoMdCash, IoMdCheckmarkCircleOutline  } from 'react-icons/io';
 import { Link } from "react-router-dom";
 import { putConfirmationRDVFromId, putConfirmationPaiementFromId } from "../API/apiLocal";
-import { useState, useEffect } from "react";
 
 /**
  * Visualisation de l'ensemble des données lié à un acte médical dans une Card/Paper.
@@ -18,9 +17,6 @@ import { useState, useEffect } from "react";
  * @constructor
  */
 export function MedicalActData({act, champs_avant_confirmation, champs_apres_confirmation}) {
-	const regexForHopital = /^.*_hopital$/;
-	const regexForMutuelle = /^.*_mutuelle$/;
-	const regexForPatient = /^.*_patient$/;
 	const currentDate = new Date();
 	console.log(act.date_venue);
 	return (

@@ -5,7 +5,6 @@ export default function RequireAuth() {
   const [user] = useUser();
 
   let location = useLocation();
-  // console.log(user);
   if (user == null || user == "") {
     // Redirect them to the /signin page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them

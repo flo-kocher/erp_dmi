@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 
 const UserContext = React.createContext();
 const UserUpdateContext = React.createContext();
@@ -12,8 +12,9 @@ export function useUserUpdate() {
 export function UserProvider({ children }) {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const changeUser = (user) => {
+    /*Mise en place de l'utilisateur dans le contexte et dans le localStorage*/
     const tempUser = JSON.parse(JSON.stringify(user));
-    if(tempUser != null){
+    if(tempUser != null){ //On retire le mot de passe des informations ajoutées au localStorage
       tempUser.password = "";  
     }
     setUser(user);

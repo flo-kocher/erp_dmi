@@ -3,9 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import {Link} from "react-router-dom";
-
 import { useLocation, useNavigate } from "react-router-dom";
-
 import { putConfirmationPaiementFromId } from "../API/apiLocal";
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 

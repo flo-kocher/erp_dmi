@@ -6,14 +6,16 @@ import { users } from "../API/testDatas";
 import {getUserById} from "../API/apiClient";
 import axios from "axios";
 
+//Page de connexion
 export default function Signin() {
+	/*Déclaration des variables*/
 	let navigate = useNavigate();
-
 	const [changeUser] = useUserUpdate();
 	const [idGr, setIdGr] = useState("");
 	const [password, setPassword] = useState("");
 	const [errorMessage, setErrorMessage] = useState("");
 
+	/*Envoi du formulaire de connexion*/
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		let userExists = false;
@@ -24,7 +26,7 @@ export default function Signin() {
 			if (response.status === 200){
 				userExists = true;
 				connectedUser = response.data;
-			}else {
+			}else { /*Cas module isolé (si l'API ne répond pas ou par une erreur)*/
 				users.forEach(u => {
 					if(u.id_graulande == idGr && u.password == password)
 					{
@@ -51,6 +53,7 @@ export default function Signin() {
 				}
 			}
 		}
+		/*Si on passe par le catch à cause d'une erreur serveur, on passe en local*/
 		if(!userExists){
 			users.forEach(u => {
 				if(u.id_graulande == idGr && u.password == password)
@@ -60,6 +63,7 @@ export default function Signin() {
 				}
 			});
 		}
+		/*Sinon on ajoute l'utilisateur au contexte pour qu'il soit accessible dans les pages suivantes*/
 		if(userExists){
 			changeUser(connectedUser);
 			const path = generatePath("/user/:idGr/MedicalActList", { idGr });
@@ -69,18 +73,16 @@ export default function Signin() {
 		else{
 			setErrorMessage("Aucun utilisateur existant pour cet identifiant graulandais et ce mot de passe.");
 		}
-	    // let response=await signin({username,password});
-		// if(response.statusCode==200){
-		// 	changeUser(response.username);
-		// 	navigate("/home/test")
-		// }
 	};
+	    
+	/*Fonctions de mise à jour des variables du state*/
 	const handleUsernameChange = (e) => {
 		setIdGr(e);
 	};
 	const handlePasswordChange = (e) => {
 		setPassword(e);
 	};
+	
 	return <>
 		<div id="signinMainDiv">
 			<h1>Connexion</h1>

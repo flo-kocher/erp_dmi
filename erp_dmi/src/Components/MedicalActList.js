@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-import { styled } from '@mui/material/styles';
 import '../Css/MedicalActList.css';
 import { useNavigate, generatePath } from 'react-router-dom';
 import { useUser, useUserUpdate } from "../Context/userContext";
-import Paper from '@mui/material/Paper';
 import { MedicalActGrid } from "./MedicalActCard";
 import { groupActsByPreviousAndPassedByHospital } from "../utils/medicalActsUtils";
 import { getUserMedicalActs, getHospitals, getMutuelles } from "../API/apiClient";
@@ -15,8 +13,9 @@ import { data, hospitals_data, mutuelles_data } from "../API/testDatas";
  * @constructor
  */
 function MedicalActList() {
+   
+    /*Déclaration des variables*/
     const navigate = useNavigate();
-
     const [user] = useUser();
     const [userChange] = useUserUpdate();
     const [medicalActs, setMedicalActs] = useState([]);
@@ -55,6 +54,7 @@ function MedicalActList() {
         fetchData();
     },[]);
 
+    /*Tri des actes médicaux*/
     useEffect(() => {
         let grouped_acts_by_hospital = groupActsByPreviousAndPassedByHospital(medicalActs);
         // console.log(grouped_acts_by_hospital);
@@ -67,15 +67,18 @@ function MedicalActList() {
         }
     },[medicalActs]);
 
+    /*Fonction de déconnexion*/
     const handleLogoff = () => {
         userChange(null);
         navigate("/signin");
     }
 
+    /*Fonction de navigation vers la page d'un acte médical*/
     const handleAppointment = () => {
         const path = generatePath("/user/:idGr/Appointment", { idGr: user.id_graulande });
         navigate(path, { state: { hospitals: hospitals }});
     }
+    
     return (
         <div>
             <div id="buttons">

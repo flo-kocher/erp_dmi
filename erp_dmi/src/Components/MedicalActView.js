@@ -1,10 +1,8 @@
 import {MedicalActData} from "./MedicalActData";
 import { useLocation, useNavigate } from "react-router-dom";
-// import {getMedicalActFromId} from "../API/apiLocal";
 import { useState, useEffect } from "react";
 import { getMedicalActById } from "../API/apiClient";
 import { data } from "../API/testDatas";
-
 
 /**
  * Visualisation d'un acte médical.
@@ -12,6 +10,7 @@ import { data } from "../API/testDatas";
  * @constructor
  */
 function MedicalActView() {
+    /*Déclaration des variables*/
     let { state } = useLocation();
     let navigate = useNavigate();
     const [act, setAct] = useState([]);
@@ -22,14 +21,12 @@ function MedicalActView() {
         async function fetchData() {
             //récupération de l'acte médical
             let responseGet = await getMedicalActById(state.id).then((res) => {
-                console.log(res);
                 return res;
             });
             if(responseGet.status == 200){
-                // console.log(responseGet.data)
                 setAct(responseGet.data);
             }
-            else{
+            else{  /*Cas module isolé (si l'API ne répond pas ou par une erreur)*/
                 for(let i = 0; i < data.length; i++)
                 {
                     if(state.id == data[i].id)
@@ -40,6 +37,7 @@ function MedicalActView() {
         fetchData();
     },[]);
 
+    /*Définition des champs à afficher et leur valeur selon la date d'un acte*/
     useEffect(() => {
         setChamps_avant_confirmation([
             { label: 'Hôpital', value: state.hospital_name },

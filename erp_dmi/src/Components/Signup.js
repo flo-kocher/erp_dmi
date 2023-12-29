@@ -4,6 +4,7 @@ import { users, mutuelles_data } from "../API/testDatas"
 import { createUser, getMutuelles} from "../API/apiClient";
 
 export default function Signup() {
+	/*Déclaration des variables*/
 	let navigate = useNavigate();
 	const [idGraulandais, setidGraulandais] = useState("");
 	const [password, setPassword] = useState("");
@@ -21,13 +22,14 @@ export default function Signup() {
             if (response.status === 200){
                 setMutuelles(response.data);
             }
-            else{
+            else{ /*Cas module isolé (si l'API ne répond pas ou par une erreur)*/
                 setMutuelles(mutuelles_data);
             }
         }
         fetchData();
     },[]);
 
+	/*Fonctions de mise à jour des variables du state*/
 	const handleChangeIdGraulandais = (e) => {
 		setidGraulandais(e);
 	};
@@ -46,6 +48,7 @@ export default function Signup() {
 	const handleChangeMutuelle = (e) => {
 		setMutuelle(e);
 	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		/*Vérification des champs du formulaire*/
@@ -57,6 +60,7 @@ export default function Signup() {
 			name.trim() !== "" &&
 			mutuelle !== 0
 		) {
+			/*Appel à la fonction de création d'un utilisateur à l'API*/
 			const newUser = {
 				id_graulande: idGraulandais,
 				password: password,
@@ -64,13 +68,13 @@ export default function Signup() {
 				first_name:	firstname,
 				mutuelle_id: mutuelle
 			};
-			//console.log(newUser);
 			const response = await createUser(newUser);
-			if(response.status !== 201){
+			if(response.status !== 201){ /*Cas module isolé (si l'API ne répond pas ou par une erreur)*/
+				//Si l'utilisateur existe déjà en local
 				if(users.some(user => user.id_graulande === idGraulandais)){
 					setErrorMessage("Il existe déjà un compte utilisateur avec cette identifiant graulandais.");
 				}
-				else{
+				else{ 
 					const newUser = {
 						id: users.length + 1,
 						id_graulande: idGraulandais,

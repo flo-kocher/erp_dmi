@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useUser } from "../Context/userContext";
 import { useNavigate, generatePath, useLocation } from "react-router-dom";
-import { data, hospitals_data } from "../API/testDatas";
+import { data } from "../API/testDatas";
 import { createMedicalAct } from "../API/apiClient";
 
 export default function AppointmentScreen() {
-	let navigate = useNavigate();
+	/*Déclaration des variables*/
+    let navigate = useNavigate();
     const { state } = useLocation();
-
     const [user] = useUser();
     const [object, setObject] = useState("");
     const [hospitalId, setHospitalId] = useState(0);
@@ -24,6 +24,7 @@ export default function AppointmentScreen() {
             date.trim() !== "" &&
             time.trim() !== ""
         ) {
+            /*Appel de la fonction de création d'un acte médical de l'API*/
             const response = await createMedicalAct({
                 user_id: user.id,
                 hospital_id: hospitalId,
@@ -44,7 +45,8 @@ export default function AppointmentScreen() {
                 date_venue: null
             });
             
-            if (response.status !== 200){
+            /*Cas module isolé (si l'API ne répond pas ou par une erreur)*/
+            if (response.status !== 200){ 
                 const newAct = {
                     id: data.length + 1,
                     user_id: user.id,
@@ -74,6 +76,8 @@ export default function AppointmentScreen() {
             setErrorMessage("Veuillez remplir tous les champs du formulaire.");
         }
     };
+    
+    /*Fonctions de mise à jour des variables du state*/
 	const handleChangeObject = (object) => {
 		setObject(object);
 	};
@@ -86,6 +90,7 @@ export default function AppointmentScreen() {
     const handleChangeTime = (time) => {
 		setTime(time);
     };
+
 	return <>
 		<div id="appointmentMainDiv">
             <a className="goBack" onClick={() => navigate(-1)}>Retour</a>
